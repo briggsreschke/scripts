@@ -1,5 +1,5 @@
 '''
-File: plog.py - (Apache log file parser) - GNU Public License
+File: log_parse.py - (Apache log file parser) - GNU Public License
 reschke.briggs@gmail.com
 
 Parse Apache log file. regex pattern may need be altered to suit specfic log format
