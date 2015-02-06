@@ -57,15 +57,23 @@ def log_get_user(arr):
 	return user
 
 # Still need to do date and time parsing
+
 def log_get_date(arr):
 	date = arr[_DATE_]
 	return date
-			
-			
+
+# Need some Regex to parse date and time field	
+					
 def log_get_time(arr):
 	time = arr[_TIME_]
 	return time
-	
+
+# And time zone
+
+def log_get_tz(arr):
+        tz = arr[_TZ_]
+        return tz
+
 def log_get_method(arr):
 	method_list = ['GET', 'POST', 'PUT', 'HEAD', 'OPTIONS', 'DELETE', 'TRACE', 'CONNECT']
 	
