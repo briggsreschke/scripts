@@ -73,7 +73,6 @@ def log_get_method(arr):
 		return 'unknown'
 	return method	
 
-
 def log_get_path(arr):
 	tmp = arr[_PATH_]
 	regex = '[\/(\S*)]+'
@@ -84,12 +83,10 @@ def log_get_path(arr):
 	if not match:
 		return 'none'
 	return match.group()
-	
 
 def log_get_protocol(arr):
 	tmp = arr[_PROTOCOL_]
 	protocol = tmp.split(' ')[2]
-
 
 def log_get_status(arr):
 	# Could check against a list of all status codes
@@ -98,7 +95,6 @@ def log_get_status(arr):
 	if not status:
 		return 'none'
 	return status
-	
 
 def log_get_bytes(arr):	
 	bytes = arr[_BYTES_]
@@ -107,14 +103,12 @@ def log_get_bytes(arr):
 		return '0'
 	return bytes
 
-
 def log_get_referer(arr):	
 	referer = arr[_REFERER_]
 	
 	if referer == '-':
 		return 'none'
 	return referer
-
 
 def log_get_agent(arr):
 	# Much more to possibly do here
