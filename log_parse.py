@@ -1,8 +1,9 @@
 '''
-File: plog.py - (Apache log file parser) - GNU Public License
+File: log_parse - (Apache log file parser) - GNU Public License
 reschke.briggs@gmail.com
 
 Parse Apache log file. regex pattern may need be altered to suit specfic log format
+Includes optional user adaptable routines for further parsing of each field.
 '''
 
 import sys
