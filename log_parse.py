@@ -8,9 +8,10 @@ Parse Apache log file. regex pattern may need be altered to suit specfic log for
 import sys
 import re
 
-# Constants; Index values into logfile record
+# Constants
 _VERBOSE_ = True 
 
+# Index values into each logfile record
 _HOST_ = 0
 _ID_ = None 
 _USER_ = None 
@@ -27,11 +28,6 @@ _AGENT_ = 6
 
 
 
-def is_whitespace(ch):
-	if ch in [' ', '\n', '\r', '\t']:
-		return True  
-	return False 
-		
 # ---------------------------------------------------------------------
 # Optional routines for individual error checking or manipulation of
 # log records
