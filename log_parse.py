@@ -37,7 +37,7 @@ def log_host(arr):
 		return 'none'
 	return host
 
-# Still need to do date and time parsing
+
 def log_date(arr):
 	regex = '^(\d+\/\w+\/\d+)'
 	
@@ -48,6 +48,7 @@ def log_date(arr):
 		return 'unknown'
 	return match.group()
 			
+
 def log_time(arr):
 	regex =  '^(\d+\/\w+\/\d+)((:\d\d)+)\s'
 	
@@ -58,6 +59,7 @@ def log_time(arr):
 		return 'unknown'
 	return match.group(2)[1:]
 	
+
 def log_tz(arr):
 	#regex =  '^(\d+\/\w+\/\d+)((:\d\d)+)(\s\S\d+)'
 	regex =  '^(.+)(.+)(\s\S\d+)'
@@ -117,7 +119,8 @@ def log_bytes(arr):
 
 
 def log_referer(arr):	
-	referer = arr[_REFERER_]
+        # Possibly more to do here
+	Referer = arr[_REFERER_]
 	
 	if referer == '-':
 		return 'none'
