@@ -131,7 +131,8 @@ def log_parse(fname):
 	dicts = []
 	
 	try:
-		# Read parse them against regex return them as an array of lists 
+		# Read in records and parse them against regex 
+
 		with open(fname, 'r') as f:
 			line = f.readline().replace('\n', '')
 			while (line):
@@ -139,7 +140,7 @@ def log_parse(fname):
 				arr.append(result)
 				line = f.readline().replace('\n', '')
 			f.close()
-	
+	        # return fields as an array of lists. One for each record
 		return arr
 	except:
 		if _VERBOSE_:
