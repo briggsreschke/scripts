@@ -12,7 +12,9 @@ import re
 # Constants
 _VERBOSE_ = True 
 
-# Index values into each logfile record
+_LOG_REGEX_ = '([(\d\.)]+) - - \[(.*?)\] "(.*?)" (\d+) (\d+) "(.*?)" "(.*?)"'
+
+# Field index values into each logfile record
 _HOST_ = 0
 _ID_ = None 
 _USER_ = None 
@@ -124,8 +126,6 @@ def log_get_agent(arr):
 	
 # Entry point. Main loop
 
-log_regex = '([(\d\.)]+) - - \[(.*?)\] "(.*?)" (\d+) (\d+) "(.*?)" "(.*?)"'
-
 def log_parse(fname):	
 	arr = []
 	dicts = []
@@ -135,7 +135,7 @@ def log_parse(fname):
 		with open(fname, 'r') as f:
 			line = f.readline().replace('\n', '')
 			while (line):
-				result = list(re.match(log_regex, line).groups())
+				result = list(re.match(_LOG_REGEX_, line).groups())
 				arr.append(result)
 				line = f.readline().replace('\n', '')
 			f.close()
