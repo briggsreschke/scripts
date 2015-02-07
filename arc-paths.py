@@ -130,7 +130,7 @@ if __name__ == "__main__":
     try:
         # Open file with coordinates of rhino tracks
         rhinoObservations = open(Observations, "r")
-        # Create a hash of rhinos and thier pat
+        # Create a hash of rhinos and thier path
         rhinoHash = getCoordinates(rhinoObservations)
     
         # close file
