@@ -37,7 +37,6 @@ def log_host(arr):
 		return 'none'
 	return host
 
-
 def log_date(arr):
 	regex = '^(\d+\/\w+\/\d+)'
 	
@@ -48,7 +47,6 @@ def log_date(arr):
 		return 'unknown'
 	return match.group()
 			
-
 def log_time(arr):
 	regex =  '^(\d+\/\w+\/\d+)((:\d\d)+)\s'
 	
@@ -59,7 +57,6 @@ def log_time(arr):
 		return 'unknown'
 	return match.group(2)[1:]
 	
-
 def log_tz(arr):
 	#regex =  '^(\d+\/\w+\/\d+)((:\d\d)+)(\s\S\d+)'
 	regex =  '^(.+)(.+)(\s\S\d+)'
@@ -71,7 +68,6 @@ def log_tz(arr):
 		return 'unknown'
 	return match.group(3)
 	
-	
 def log_method(arr):
 	method_list = ['GET', 'POST', 'PUT', 'HEAD', 'OPTIONS', 'DELETE', 'TRACE', 'CONNECT']
 	
@@ -81,7 +77,6 @@ def log_method(arr):
 	if method not in method_list:
 		return 'unknown'
 	return method	
-
 
 def log_path(arr):
 	tmp = arr[_PATH_]
@@ -94,12 +89,10 @@ def log_path(arr):
 		return 'none'
 	return match.group()
 	
-
 def log_protocol(arr):
 	tmp = arr[_PROTOCOL_]
 	protocol = tmp.split(' ')[2]
 	return protocol
-
 
 def log_status(arr):
 	# Could check against a list of all status codes
@@ -109,14 +102,12 @@ def log_status(arr):
 		return 'none'
 	return status
 	
-
 def log_bytes(arr):	
 	bytes = arr[_BYTES_]
 	
 	if not long(bytes):
 		return '0'
 	return bytes
-
 
 def log_referer(arr):	
         # Possibly more to do here
@@ -126,7 +117,6 @@ def log_referer(arr):
 		return 'none'
 	return referer
 
-
 def log_agent(arr):
 	# Much more to possibly do here
 	agent = arr[_AGENT_]
@@ -134,7 +124,6 @@ def log_agent(arr):
 	if agent == '-':
 		return 'none'
 	return agent
-
 
 # ---------------------------------------------------------------------
 	
@@ -160,7 +149,6 @@ def log_parse(fname):
 			print 'Error processing log file: ' + fname
 		sys.exit(2)
 	
-
 #--------------------------------- main() -----------------------------
 
 _TESTING_ = True
