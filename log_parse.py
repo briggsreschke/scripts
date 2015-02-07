@@ -191,3 +191,4 @@ if __name__ == '__main__':
 		print 'processed ' + str(len(records)) + ' records' 
 	
 	sys.exit(0)
+	
