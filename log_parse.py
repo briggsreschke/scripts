@@ -34,7 +34,7 @@ def log_host(arr):
 	host = arr[_HOST_]
 	
 	if not host: 
-		return 'none'
+		return 'unknown'
 	return host
 
 def log_date(arr):
@@ -86,7 +86,7 @@ def log_path(arr):
 	match = pattern.match(tmp.split(' ')[1])
 	
 	if not match:
-		return 'none'
+		return 'unknown'
 	return match.group()
 	
 def log_protocol(arr):
@@ -99,7 +99,7 @@ def log_status(arr):
 	status = arr[_STATUS_]
 	
 	if not status:
-		return 'none'
+		return 'unknown'
 	return status
 	
 def log_bytes(arr):	
@@ -114,7 +114,7 @@ def log_referer(arr):
 	Referer = arr[_REFERER_]
 	
 	if referer == '-':
-		return 'none'
+		return 'unknown'
 	return referer
 
 def log_agent(arr):
@@ -122,7 +122,7 @@ def log_agent(arr):
 	agent = arr[_AGENT_]
 	
 	if agent == '-':
-		return 'none'
+		return 'unknwon'
 	return agent
 
 # ---------------------------------------------------------------------
