@@ -1,7 +1,7 @@
 # data-management
-Data Management and Data Automation
+<h2> Data Management and Data Automation </h2>
 
-log_parse.py --- Apache log file parser
-
-arc_paths.py --- ArcGIS creates multiple paths as polyline features from CSV
+<ul>
+  <li>log_parse.py --- Apache log file parser</li>
+  <li>arc_paths.py --- ArcGIS creates multiple paths as polyline features from CSV</li>
 
