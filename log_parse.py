@@ -1,6 +1,8 @@
+
+	
+	
 '''
 File: log_parse.py - (Apache log file parser) - GNU Public License
-reschke.briggs@gmail.com
 
 Parse Apache log file. regex pattern may need be altered to suit specfic log format
 Includes optional user adaptable routines for further parsing of each field.
@@ -27,8 +29,8 @@ _BYTES_ = 4
 _REFERER_ = 5
 _AGENT_ = 6
 		
-# ----------------------------------------------------------------------------------
-# Optional adaptable routines for error checking or further parsing of individual log records
+# --------------------------------------------------------------------------
+# Optional adaptable routines for further parsing of individual log records
 
 def log_host(arr):
 	host = arr[_HOST_]
@@ -37,9 +39,8 @@ def log_host(arr):
 
 # Return the intact Unix time stamp
 def log_timestamp(arr):
-        timestamp = arr[_TIME_]
-        
-        return timestamp
+	timestamp = arr[_TIME_]     
+ 	return timestamp
 
 def log_time(arr):
 	regex =  '^(\d+\/\w+\/\d+)((:\d\d)+)\s'
@@ -59,11 +60,9 @@ def log_date(arr):
 	
 	if not match:
 		return 'unknown'
-	return match.group()
-			
+	return match.group()		
 	
 def log_tz(arr):
-	#regex =  '^(\d+\/\w+\/\d+)((:\d\d)+)(\s\S\d+)'
 	regex =  '^(.+)(.+)(\s\S\d+)'
 	
 	pattern = re.compile(regex)
@@ -79,9 +78,9 @@ def log_method(arr):
 	tmp = arr[_METHOD_]
 	method = tmp.split(' ')[0]
 	
-        if method not in method_list:
-             return 'unknown'
-        return method	
+  	if method not in method_list:
+  		return 'unknown'
+ 	return method	
 	
 def log_path(arr):
 	tmp = arr[_PATH_]
@@ -119,7 +118,7 @@ def log_bytes(arr):
 
 def log_referer(arr):	
         # Possibly more to do here
-	Referer = arr[_REFERER_]
+	referer = arr[_REFERER_]
 	
 	if referer == '-':
 		return 'unknown'
@@ -135,27 +134,30 @@ def log_agent(arr):
 
 # Get dictionary of log records
 def log_dict(arr):
-
-        for r in arr:
-                 dict['host'] = log_host(r)
-                 # Intact unix time stamp
-                 dict['timestamp'] = log_timestamp(r)
-                 dict['time'] = log_time(r)
-                 dict['date'] = log_date(r)
-                 dict['tz'] = log_tz(r)
-                 dict['method'] = log_method(r)
-                 dict['path'] = log_path(r)
-                 dict['protocol'] = log_protocol(r)
-                 dict['status'] = log_status(r)  
-                 dict['bytes'] = log_bytes(r)
-                 dict['referer'] = log_referer(r)
-                 dict['agent'] = log_agent(r)
-        return dict
+	dictionaries = []
+	dict = {}
 	
+	for r in arr:
+		dict['host'] = log_host(r)
+        # Intact unix time stamp
+		dict['timestamp'] = log_timestamp(r)
+		dict['time'] = log_time(r)
+		dict['date'] = log_date(r)
+		dict['tz'] = log_tz(r)
+		dict['method'] = log_method(r)
+		dict['path'] = log_path(r)
+		dict['protocol'] = log_protocol(r)
+		dict['status'] = log_status(r)  
+		dict['bytes'] = log_bytes(r)
+		dict['referer'] = log_referer(r)
+		dict['agent'] = log_agent(r)
+		
+		dictionaries.append(dict)	
+	
+	return dictionaries
 
 def log_parse(fname):	
 	arr = []
-	dicts = []
 	
 	try:
 		# Read in records and parse them against regex 
@@ -166,34 +168,33 @@ def log_parse(fname):
 				arr.append(result)
 				line = f.readline().replace('\n', '')
 			f.close()
-	
 		return arr
 	except:
-		if _VERBOSE_:
-			print 'Error processing log file: ' + fname
-		sys.exit(2)
+		return []
 	
 #----------------------------------------------------------------------
 
 _TESTING_ = True
 
-main()
-         if _TESTING_:
-          
+def main():
+	if _TESTING_:
+		dictionaries = []
+		
 		try:
 			records = log_parse('access.log')
 		except:
 			print 'Unable to proccess log file'
 			sys.exit(2)
 	 
-               try:
-                        print log_dict(records)
-               except:
-                        print 'Parsing unsuccessful'
-                        sys.exit(1)
-	
-	       sys.exit(0)
-
+		try:
+			dictionaries = log_dict(records)
+			print dictionaries[0]
+			print 'Processed ' + str(len(dictionaries)) + ' records\n'
+		except:
+			print 'Parsing unsuccessful'
+			sys.exit(1)
+		
+		sys.exit(0)
 
 if __name__ == '__main__':
 	
