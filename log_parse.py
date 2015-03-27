@@ -28,13 +28,11 @@ _REFERER_ = 5
 _AGENT_ = 6
 		
 # ----------------------------------------------------------------------------------
-# Optional routines for  error checking or further parsing of individual log records
+# Optional adaptable routines for error checking or further parsing of individual log records
 
 def log_host(arr):
 	host = arr[_HOST_]
 	
-	if not host: 
-		return 'unknown'
 	return host
 
 # Return the intact Unix time stamp
@@ -80,11 +78,11 @@ def log_method(arr):
 	
 	tmp = arr[_METHOD_]
 	method = tmp.split(' ')[0]
-
-	if method not in method_list:
-		return 'unknown'
-	return method	
-
+	
+        if method not in method_list:
+             return 'unknown'
+        return method	
+	
 def log_path(arr):
 	tmp = arr[_PATH_]
 	regex = '[\/(\S*)]+'
@@ -99,10 +97,13 @@ def log_path(arr):
 def log_protocol(arr):
 	tmp = arr[_PROTOCOL_]
 	protocol = tmp.split(' ')[2]
-	return protocol
+	
+        if not protocol:
+                return 'unknown'
+        return protocol
 
 def log_status(arr):
-	# Could check against a list of all status codes
+	# Could maybe check against a list of all status codes
 	status = arr[_STATUS_]
 	
 	if not status:
@@ -139,6 +140,9 @@ def log_dict(arr):
                  dict['host'] = log_host(r)
                  # Intact unix time stamp
                  dict['timestamp'] = log_timestamp(r)
+                 dict['time'] = log_time(r)
+                 dict['date'] = log_date(r)
+                 dict['tz'] = log_tz(r)
                  dict['method'] = log_method(r)
                  dict['path'] = log_path(r)
                  dict['protocol'] = log_protocol(r)
