@@ -196,7 +196,7 @@ main()
 			log_status(r) + ' ' + \
 			log_bytes(r) + ' ' + \
 			log_referer(r) + ' ' + \
-			log_agent(r) +' '\n'
+			log_agent(r) + '\n'
 			
 		print 'processed ' + str(len(records)) + ' records\n' 
 
