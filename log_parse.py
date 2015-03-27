@@ -37,13 +37,23 @@ def log_host(arr):
 		return 'unknown'
 	return host
 
-# Return the wholly intact Unix time stamp
+# Return the intact Unix time stamp
 def log_timestamp(arr):
         timestamp = arr[_TIME_]
 
         if timestamp == '-'
                 return 'unknown'
          return timestamp
+
+def log_time(arr):
+	regex =  '^(\d+\/\w+\/\d+)((:\d\d)+)\s'
+	
+	pattern = re.compile(regex)
+	match = pattern.match(arr[_TIME_])
+	
+	if not match:
+		return 'unknown'
+	return match.group(2)[1:]
 
 def log_date(arr):
 	regex = '^(\d+\/\w+\/\d+)'
@@ -55,15 +65,6 @@ def log_date(arr):
 		return 'unknown'
 	return match.group()
 			
-def log_time(arr):
-	regex =  '^(\d+\/\w+\/\d+)((:\d\d)+)\s'
-	
-	pattern = re.compile(regex)
-	match = pattern.match(arr[_TIME_])
-	
-	if not match:
-		return 'unknown'
-	return match.group(2)[1:]
 	
 def log_tz(arr):
 	#regex =  '^(\d+\/\w+\/\d+)((:\d\d)+)(\s\S\d+)'
@@ -181,28 +182,16 @@ main()
 			records = log_parse('access.log')
 		except:
 			print 'Unable to proccess log file'
-			sys.exit(1)
-		
-		for r in records:
-			#print line
-			print log_host(r) + ' ' + \
-			log_timestamp(r) + ' ' + \
-                        log_date(r) + ' ' + \
-			log_time(r) + ' ' + \
-			log_tz(r) + ' ' + \
-			log_method(r) + ' ' + \
-			log_path(r) + ' ' + \
-			log_protocol(r) + ' ' 
-			log_status(r) + ' ' + \
-			log_bytes(r) + ' ' + \
-			log_referer(r) + ' ' + \
-			log_agent(r) + '\n'
-			
-		print 'processed ' + str(len(records)) + ' records\n' 
-
-                print log_dict(records)
+			sys.exit(2)
+	 
+               try:
+                        print log_dict(records)
+               except:
+                        print 'Parsing unsuccessful'
+                        sys.exit(1)
 	
-	sys.exit(0)
+	       sys.exit(0)
+
 
 if __name__ == '__main__':
 	
