@@ -40,10 +40,8 @@ def log_host(arr):
 # Return the intact Unix time stamp
 def log_timestamp(arr):
         timestamp = arr[_TIME_]
-
-        if timestamp == '-'
-                return 'unknown'
-         return timestamp
+        
+        return timestamp
 
 def log_time(arr):
 	regex =  '^(\d+\/\w+\/\d+)((:\d\d)+)\s'
@@ -135,7 +133,7 @@ def log_agent(arr):
 	return agent
 
 # Get dictionary of log records
-def log_dict(arr)
+def log_dict(arr):
 
         for r in arr:
                  dict['host'] = log_host(r)
