@@ -140,7 +140,6 @@ def log_dict(arr)
                  dict['host'] = log_host(r)
                  # Intact unix time stamp
                  dict['timestamp'] = log_timestamp(r)
-                 dict['time'] = log_time(r)
                  dict['method'] = log_method(r)
                  dict['path'] = log_path(r)
                  dict['protocol'] = log_protocol(r)
