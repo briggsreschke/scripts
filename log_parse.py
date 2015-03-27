@@ -37,6 +37,14 @@ def log_host(arr):
 		return 'unknown'
 	return host
 
+# Return the wholly intact Unix time stamp
+def log_timestamp(arr):
+        timestamp = arr[_TIME_]
+
+        if timestamp == '-'
+                return 'unknown'
+         return timestamp
+
 def log_date(arr):
 	regex = '^(\d+\/\w+\/\d+)'
 	
@@ -62,7 +70,7 @@ def log_tz(arr):
 	regex =  '^(.+)(.+)(\s\S\d+)'
 	
 	pattern = re.compile(regex)
-	match = pattern.match(arr[_TIME_])
+	match = pattern.match(arr[_TZ_])
 	
 	if not match:
 		return 'unknown'
@@ -125,9 +133,23 @@ def log_agent(arr):
 		return 'unknwon'
 	return agent
 
-# ---------------------------------------------------------------------
+# Get dictionary of log records
+def log_dict(arr)
+
+        for r in arr:
+                 dict['host'] = log_host(r)
+                 # Intact unix time stamp
+                 dict['timestamp'] = log_timestamp(r)
+                 dict['time'] = log_time(r)
+                 dict['method'] = log_method(r)
+                 dict['path'] = log_path(r)
+                 dict['protocol'] = log_protocol(r)
+                 dict['status'] = log_status(r)  
+                 dict['bytes'] = log_bytes(r)
+                 dict['referer'] = log_referer(r)
+                 dict['agent'] = log_agent(r)
+        return dict
 	
-# Entry point. Main loop
 
 def log_parse(fname):	
 	arr = []
@@ -149,13 +171,13 @@ def log_parse(fname):
 			print 'Error processing log file: ' + fname
 		sys.exit(2)
 	
-#--------------------------------- main() -----------------------------
+#----------------------------------------------------------------------
 
 _TESTING_ = True
 
-if __name__ == '__main__':
-	
-	if _TESTING_:
+main()
+         if _TESTING_:
+          
 		try:
 			records = log_parse('access.log')
 		except:
@@ -165,7 +187,8 @@ if __name__ == '__main__':
 		for r in records:
 			#print line
 			print log_host(r) + ' ' + \
-			log_date(r) + ' ' + \
+			log_timestamp(r) + ' ' + \
+                        log_date(r) + ' ' + \
 			log_time(r) + ' ' + \
 			log_tz(r) + ' ' + \
 			log_method(r) + ' ' + \
@@ -174,9 +197,19 @@ if __name__ == '__main__':
 			log_status(r) + ' ' + \
 			log_bytes(r) + ' ' + \
 			log_referer(r) + ' ' + \
-			log_agent(r)
+			log_agent(r) +' '\n'
 			
-		print 'processed ' + str(len(records)) + ' records' 
+		print 'processed ' + str(len(records)) + ' records\n' 
+
+                print log_dict(records)
 	
 	sys.exit(0)
+
+if __name__ == '__main__':
+	
+        main()
+	
+
+
+
 	
