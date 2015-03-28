@@ -31,7 +31,6 @@ _AGENT_ = 6
 
 def get_host(arr):
 	host = arr[_HOST_]
-	
 	return host
 
 # Return the intact Unix time stamp
@@ -70,9 +69,8 @@ def get_timezone(arr):
 	return match.group(3)
 	
 def get_method(arr):
-	# Could check against specfic methods in the list
+	# Could filter specific methods in the list
 	method_list = ['GET', 'POST', 'PUT', 'HEAD', 'OPTIONS', 'DELETE', 'TRACE', 'CONNECT']
-	
 	tmp = arr[_METHOD_]
 	method = tmp.split(' ')[0]
 	
@@ -100,7 +98,7 @@ def get_protocol(arr):
 	return protocol
 
 def get_status(arr):
-	# Could maybe check against a list of all status codes
+	# Could filter only specific status codes
 	status = arr[_STATUS_]
 	
 	if not status:
