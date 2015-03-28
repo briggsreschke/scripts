@@ -167,35 +167,4 @@ def parse(fname):
 		return arr
 	except:
 		return []
-	
-import aparse
-import sys
 
-# Path to log file
-LOG_FILE = "/private/var/log/apache2/access_log"
-
-def main():
-	dictionaries = []
-		
-	try:
-		# 
-		records = parse("./access.log")
-	except:
-		print 'Unable to proccess log file'
-		sys.exit(2)
-	try:
-		dictionaries = get_dict(records)
-		for i in range(len(dictionaries)):
-			print dictionaries[i] + '\n'
-		print 'foo'
-		print 'Processed ' + str(len(dictionaries)) + ' records\n'
-	except:
-		print e + 'Parsing unsuccessful'
-		sys.exit(1)
-	
-	sys.exit(0)
-
-if __name__ == '__main__':
-	
-       main()
-       
