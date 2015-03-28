@@ -1,5 +1,5 @@
 '''
-File: log_parse.py - (Apache log file parser)
+File: aparse.py
 
 GNU Public License
 
