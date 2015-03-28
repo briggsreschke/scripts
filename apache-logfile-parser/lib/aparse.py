@@ -4,7 +4,7 @@ File: log_parse.py - (Apache log file parser)
 GNU Public License
 
 Parse Apache log file. regex pattern may need be altered to suit specfic log format
-Includes optional user adaptable routines for further parsing of each field.
+Includes optional user customizable routines for further parsing of each field.
 '''
 
 import sys
