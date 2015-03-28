@@ -5,7 +5,8 @@
 
 <p>
 	Distributed under the GNU Public License
-	
+</p>
+<p>	
 	Parses Apache log file and stores each logfile record as a list, or dictionary. Includes optional user customizable routines for further parsing of each log file record.
 </p>
 
