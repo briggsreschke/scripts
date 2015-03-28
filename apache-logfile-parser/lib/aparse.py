@@ -27,7 +27,7 @@ _REFERER_ = 5
 _AGENT_ = 6
 		
 # --------------------------------------------------------------------------
-# Optional adaptable routines for further parsing of individual log records
+# Optional adaptable routines for error checking or filtering individual log records
 
 def get_host(arr):
 	host = arr[_HOST_]
