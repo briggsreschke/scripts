@@ -177,7 +177,6 @@ import sys
 LOG_FILE = "/private/var/log/apache2/access_log"
 
 def main():
-	
 	dictionaries = []
 		
 	try:
@@ -186,7 +185,6 @@ def main():
 	except:
 		print 'Unable to proccess log file'
 		sys.exit(2)
-	 
 	try:
 		dictionaries = get_dict(records)
 		for i in range(len(dictionaries)):
@@ -196,7 +194,7 @@ def main():
 	except:
 		print e + 'Parsing unsuccessful'
 		sys.exit(1)
-		
+	
 	sys.exit(0)
 
 if __name__ == '__main__':
