@@ -1,5 +1,5 @@
-import aparse
 import sys
+import aparse
 
 # Path to log file on mac
 LOG_FILE = '/private/var/log/apache2/access.log'
