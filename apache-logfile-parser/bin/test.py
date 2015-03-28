@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 import sys
 import aparse
 
@@ -21,7 +23,6 @@ def main():
 		
 		for i in range(len(dictionaries)):
 			print dictionaries[i]
-	
 		print 'Processed ' + str(len(dictionaries)) + ' records\n'
 	except:
 		print 'Parsing unsuccessful'
