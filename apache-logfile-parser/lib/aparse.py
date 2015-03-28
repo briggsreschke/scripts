@@ -1,8 +1,7 @@
-
-	
-	
 '''
-File: log_parse.py - (Apache log file parser) - GNU Public License
+File: log_parse.py - (Apache log file parser)
+
+GNU Public License
 
 Parse Apache log file. regex pattern may need be altered to suit specfic log format
 Includes optional user adaptable routines for further parsing of each field.
@@ -10,9 +9,7 @@ Includes optional user adaptable routines for further parsing of each field.
 
 import sys
 import re
-
-# Constants; Index values into logfile record
-_VERBOSE_ = True 
+import aparse
 
 _LOG_REGEX_ = '([(\d\.)]+) - - \[(.*?)\] "(.*?)" (\d+) (\d+) "(.*?)" "(.*?)"'
 
@@ -32,17 +29,17 @@ _AGENT_ = 6
 # --------------------------------------------------------------------------
 # Optional adaptable routines for further parsing of individual log records
 
-def log_host(arr):
+def get_host(arr):
 	host = arr[_HOST_]
 	
 	return host
 
 # Return the intact Unix time stamp
-def log_timestamp(arr):
+def get_timestamp(arr):
 	timestamp = arr[_TIME_]     
- 	return timestamp
+	return timestamp
 
-def log_time(arr):
+def get_time(arr):
 	regex =  '^(\d+\/\w+\/\d+)((:\d\d)+)\s'
 	
 	pattern = re.compile(regex)
@@ -52,7 +49,7 @@ def log_time(arr):
 		return 'unknown'
 	return match.group(2)[1:]
 
-def log_date(arr):
+def get_date(arr):
 	regex = '^(\d+\/\w+\/\d+)'
 	
 	pattern = re.compile(regex)
@@ -62,7 +59,7 @@ def log_date(arr):
 		return 'unknown'
 	return match.group()		
 	
-def log_tz(arr):
+def get_timezone(arr):
 	regex =  '^(.+)(.+)(\s\S\d+)'
 	
 	pattern = re.compile(regex)
@@ -72,17 +69,18 @@ def log_tz(arr):
 		return 'unknown'
 	return match.group(3)
 	
-def log_method(arr):
+def get_method(arr):
+	# Could check against specfic methods in the list
 	method_list = ['GET', 'POST', 'PUT', 'HEAD', 'OPTIONS', 'DELETE', 'TRACE', 'CONNECT']
 	
 	tmp = arr[_METHOD_]
 	method = tmp.split(' ')[0]
 	
-  	if method not in method_list:
-  		return 'unknown'
- 	return method	
+ 	if not method:
+ 		return 'unknown'
+	return method	
 	
-def log_path(arr):
+def get_path(arr):
 	tmp = arr[_PATH_]
 	regex = '[\/(\S*)]+'
 	
@@ -93,15 +91,15 @@ def log_path(arr):
 		return 'unknown'
 	return match.group()
 	
-def log_protocol(arr):
+def get_protocol(arr):
 	tmp = arr[_PROTOCOL_]
 	protocol = tmp.split(' ')[2]
 	
-        if not protocol:
-                return 'unknown'
-        return protocol
+	if not protocol:
+		return 'unknown'
+	return protocol
 
-def log_status(arr):
+def get_status(arr):
 	# Could maybe check against a list of all status codes
 	status = arr[_STATUS_]
 	
@@ -109,22 +107,22 @@ def log_status(arr):
 		return 'unknown'
 	return status
 	
-def log_bytes(arr):	
+def get_bytes(arr):	
 	bytes = arr[_BYTES_]
 	
 	if not long(bytes):
 		return '0'
 	return bytes
 
-def log_referer(arr):	
-        # Possibly more to do here
+def get_referer(arr):	
+       # Possibly more to do here
 	referer = arr[_REFERER_]
 	
 	if referer == '-':
 		return 'unknown'
 	return referer
 
-def log_agent(arr):
+def get_agent(arr):
 	# Much more to possibly do here
 	agent = arr[_AGENT_]
 	
@@ -133,32 +131,32 @@ def log_agent(arr):
 	return agent
 
 # Get dictionary of log records
-def log_dict(arr):
+def get_dict(arr):
 	dictionaries = []
 	dict = {}
 	
 	for r in arr:
-		dict['host'] = log_host(r)
-                # Intact unix time stamp
-		dict['timestamp'] = log_timestamp(r)
-		dict['time'] = log_time(r)
-		dict['date'] = log_date(r)
-		dict['tz'] = log_tz(r)
-		dict['method'] = log_method(r)
-		dict['path'] = log_path(r)
-		dict['protocol'] = log_protocol(r)
-		dict['status'] = log_status(r)  
-		dict['bytes'] = log_bytes(r)
-		dict['referer'] = log_referer(r)
-		dict['agent'] = log_agent(r)
+		dict['host'] = get_host(r)
+       # Intact unix time stamp
+		dict['timestamp'] = get_timestamp(r)
+		dict['time'] = get_time(r)
+		dict['date'] = get_date(r)
+		dict['timezone'] = get_timezone(r)
+		dict['method'] = get_method(r)
+		dict['path'] = get_path(r)
+		dict['protocol'] = get_protocol(r)
+		dict['status'] = get_status(r)  
+		dict['bytes'] = get_bytes(r)
+		dict['referer'] = get_referer(r)
+		dict['agent'] = get_agent(r)
 		
 		dictionaries.append(dict)	
 	
 	return dictionaries
 
-def log_parse(fname):	
+def parse(fname):	
 	arr = []
-	
+
 	try:
 		# Read in records and parse them against regex 
 		with open(fname, 'r') as f:
@@ -172,35 +170,35 @@ def log_parse(fname):
 	except:
 		return []
 	
-#----------------------------------------------------------------------
+import aparse
+import sys
 
-_TESTING_ = True
+# Path to log file
+LOG_FILE = "/private/var/log/apache2/access_log"
 
 def main():
-	if _TESTING_:
-		dictionaries = []
+	
+	dictionaries = []
 		
-		try:
-			records = log_parse('access.log')
-		except:
-			print 'Unable to proccess log file'
-			sys.exit(2)
+	try:
+		# 
+		records = parse("./access.log")
+	except:
+		print 'Unable to proccess log file'
+		sys.exit(2)
 	 
-		try:
-			dictionaries = log_dict(records)
-			print dictionaries[0]
-			print 'Processed ' + str(len(dictionaries)) + ' records\n'
-		except:
-			print 'Parsing unsuccessful'
-			sys.exit(1)
+	try:
+		dictionaries = get_dict(records)
+		for i in range(len(dictionaries)):
+			print dictionaries[i] + '\n'
+		print 'foo'
+		print 'Processed ' + str(len(dictionaries)) + ' records\n'
+	except:
+		print e + 'Parsing unsuccessful'
+		sys.exit(1)
 		
-		sys.exit(0)
+	sys.exit(0)
 
 if __name__ == '__main__':
 	
-        main()
-	
-
-
-
-	
+       main()
