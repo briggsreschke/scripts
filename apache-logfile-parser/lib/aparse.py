@@ -4,7 +4,8 @@ File: aparse.py
 GNU Public License
 
 Parse Apache log file. regex pattern may need be altered to suit specfic log format
-Includes optional user customizable routines for further parsing of each field.
+Includes optional user customizable routines for filtering records or error checking.
+
 '''
 
 import sys
@@ -26,7 +27,7 @@ _BYTES_ = 4
 _REFERER_ = 5
 _AGENT_ = 6
 		
-# --------------------------------------------------------------------------
+
 # Optional adaptable routines for error checking or filtering individual log records
 
 def get_host(arr):
