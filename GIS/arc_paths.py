@@ -97,10 +97,12 @@ def createPath(Hash, Shapefile):
 
     return count
 
+def main():
 
-if __name__ == "__main__":
 
-    # Get the name of the observations file, the output directory and shapefile that rhinos and thier tracks will be written to
+    # Get the name of the observations file, the output directory and shapefile 
+    # that rhinos and thier tracks will be written to
+
     try:
         Observations = arcpy.GetParameterAsText(0)
         outputDir = arcpy.GetParameterAsText(1)
@@ -164,4 +166,7 @@ if __name__ == "__main__":
     print "Processed " + str(len(rhinoHash)) + " rhinos and " + str(numObservations) + " observations"
     
     sys.exit(0)
+if __name__ == "__main__":
+
+    main()
 
