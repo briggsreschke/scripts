@@ -1,18 +1,18 @@
-# arcpaths.py 
-#
-# Takes a csv file ('Observations') with['name', 'x', 'y'] as fields and plots multiple paths from that data
-#
-# The name field is set to 'Rhino' (plots Rhinos) so search and replace every instance of 'Rhino'
-# Takes input and output file names from the command line
-#
-# reschke.briggs@gmail.com
-# Uses sys.exit() for returning status values back to a batch file
+'''
+Takes a csv file ('Observations') with['name', 'x', 'y'] as fields and plots multiple paths from that data
+
+The name field is set to 'Rhino' (plots Rhinos) so search and replace every instance of 'Rhino'
+Takes input and output file names from the command line
+
+
+Uses sys.exit() for returning status values back to a batch file
+'''
 
 import arcpy, os, sys
 
 GCS_North_American_1983 = 4269
 
-# Change this to what ever the name identifier field label is in the csv file
+# Change this to what ever the field label is in the csv file
 NAME_FIELD = "Rhino" 
 
 X_FIELD = "X"
@@ -97,7 +97,7 @@ def createPath(Hash, Shapefile):
 
     return count
 
-# ------------------------------ Main Progam 
+
 if __name__ == "__main__":
 
     # Get the name of the observations file, the output directory and shapefile that rhinos and thier tracks will be written to
@@ -145,11 +145,15 @@ if __name__ == "__main__":
     # Create ouput shapefile with GCS_NAD_1983 (4269) spatial reference
     try:
         arcpy.CreateFeatureclass_management(outputDir, outputShape, "POLYLINE", "", "DISABLED", "DISABLED", GCS_North_American_1983)
-    
-        # Create a field in the polyline shapefile to hold rhino's name
-        # In cases where an observations file follow a field name standard
-        # this line of code would not be neccesssary
+        
+        '''
+        Create a field in the polyline shapefile to hold rhino's name
+        In cases where an observations file follow a field name standard
+        this line of code would not be neccesssary
+        '''
+
         arcpy.AddField_management(outShape, NAME_FIELD, "TEXT")
+       
     
         # write the path to a file
         numObservations = createPath(rhinoHash, outShape)
