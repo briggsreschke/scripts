@@ -156,7 +156,7 @@ def delete_rows(ifile, ofile, mdict, header, delimiter):
 # Inserts a header. Only useful if there never was one
 
 def insert_header(ifile, hlist, delimiter):
-
+	# Incomplete
 	if not os.path.isfile(ifile):
 		print 'Input file ' + ifile + ' does not exist'
 		sys.exit(5)
