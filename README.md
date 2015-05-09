@@ -2,7 +2,7 @@
 
 <table>
   <tr>
-    <td><6> aparse.py </h6></td> 
+    <td><h6> aparse.py </h6></td> 
     <td>An apache log file parser with optional routines for greater filtering.</td>
   </tr>
   <tr>
