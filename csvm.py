@@ -1,5 +1,5 @@
 '''
-csvm.py - simple delete rows and cols from a csv, and extra build a json document
+csvm.py - simple delete rows and cols from a csv, and for csv to json.
 
 '''
 
