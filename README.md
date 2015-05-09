@@ -7,7 +7,6 @@
   </tr>
   <tr>
     <td><h6>csvm.py</h6></td>
-    <td>Utility for deleting rows and columns from a csv file.</td>
-    <td>csv-to-json.</td> 
+    <td>Utility for deleting rows and columns from a csv file. Todo: csv-to-json routine.</td> 
   </tr>
 </p>
