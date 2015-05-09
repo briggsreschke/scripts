@@ -54,7 +54,7 @@ def delete_cols(ifile, ofile, cols, header, delimiter):
 		# get delimited row into a list
 		row = line.split(delimiter)
 		
-		# Delete rows provided in cols list
+		# Delete rows. Row index given by cols list.
 		for idx, column in enumerate(cols):
 			column -= idx
 			del row[column]		
