@@ -19,12 +19,12 @@ def get_bakname(fname):
 	foo = True
 	
 	# make backup filename to start with
-	bname = fname[:-3] + '.bak' +'.csv'
-	# try backup file names until to get an unused one
+	bname = fname + '.bak'
+	# try backup file names until an unused one
 	while(foo):
 		if os.path.isfile(bname):
 			cnt += 1
-			bname = fname[:-4] + '.bak' + str(cnt) + '.csv'
+			bname = fname + '.bak' + str(cnt) 
 		else:
 			foo = False
 	
@@ -35,7 +35,6 @@ def get_bakname(fname):
 
 def create_backup(fname, delimiter):
 	
-	# get name of backup file
 	bname = get_bakname(fname)
 	shutil.copyfile(fname, bname)
 
