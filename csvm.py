@@ -5,16 +5,14 @@ csvm.py - Ver 1.0 - Last updated 5.9.2015
 Simple merge and delete operations for large csv files
 
 ---
+For merging: takes input files as a list and appends data to ouput.
+---
 For row and column deletion: from the input file, read data into a list 
 and then after creating a backup, output changed data back to file with 
 same name as the input.
 ---
-For merging csv files: delete unwanted rows and columns from any csv. 
----
-For merging: takes input files as a list and then write append all to ouput.
----
 Additional functionality: build a json document from any csv.
---
+---
 Todo: insert_header(), to_json()
 --------------------------------------------------------------------------
 '''
@@ -100,7 +98,7 @@ def delete_cols(fname, cols, header, delimiter):
 			
 	# Open csv file and truncate it	
 	try:
-		of = open(fname, 'w+')
+		op = open(fname, 'w+')
 	except:
 		print 'Could not open input file in delete_cols().'
 		sys.exit(4)
@@ -123,15 +121,15 @@ def delete_cols(fname, cols, header, delimiter):
 		
 		# write header if there is one
 		if header and count == 0:
-			of.write(delimeter.join(head))
+			op.write(delimeter.join(head))
 			
 		# write the row with elimnated cols
-		of.write(delimiter.join(row))
+		op.write(delimiter.join(row))
 		
 		# increment row index
 		count += 1
 	
-	of.close()				
+	op.close()				
 
 	return count
 
@@ -221,11 +219,12 @@ def merge_files(file_list, ofile):
 		ip.close()
 	
 	op.close()
+	
 	return count
 	
 
 # -------------------------------------------------------------------
-# Inserts a header. Only useful if there never was one
+# Optionally insert header if file doesn't have one
 
 def insert_header(input_name, hlist, delimiter):
 	# Todo
@@ -242,10 +241,7 @@ def insert_header(input_name, hlist, delimiter):
 	# write contents of input to tmp
 	# close input
 	# delete input file
-	# rename tmp file to input file name
-
-
-	
+	# rename tmp file to input file name	
 		
 # --------------------------------------------------------------------	
 # Make a json document from csv data
@@ -267,14 +263,15 @@ def main():
 		ncols = delete_cols('csv-testdata.csv' , cols, False, ',')
 		print '\nProcessed ' + str(ncols) + ' records.'
 	
-		# Delete rows using dict with column num and regex patterns to match against
+		# Delete rows using dict with column num and regex pattern to match against
 		dict = {3:'^(SP|NP|NF)$'}
 		nrows = delete_rows('csv-testdata.csv' , dict, False, ',')
 		print 'Deleted ' + str(ncols-nrows) + ' rows.'
-
+	
+	sys.exit(0)
 
 if __name__ == '__main__':
 	
 	main()
-	sys.exit(0)
+
 			
