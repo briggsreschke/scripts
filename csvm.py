@@ -4,15 +4,12 @@ csvm.py - Ver 1.0 - Last updated 5.9.2015
 
 Simple merge and delete operations for large csv files
 
----
-For merging: takes input files as a list and appends data to ouput.
----
-For row and column deletion: from the input file, read data into a list 
-and then after creating a backup, output changed data back to file with 
-same name as the input.
----
-Additional functionality: build a json document from any csv.
----
+--
+Merge: takes input files as a list and appends data to ouput.
+--
+Row and column deletion: from the input file, read data into a list 
+before row and col operations
+--
 Todo: insert_header(), to_json()
 --------------------------------------------------------------------------
 '''
@@ -25,7 +22,7 @@ import shutil
 TESTING = 1
 
 #--------------------------------------------------------------------
-# Get backup file name
+# Get backup file name (not used)
 
 def get_bakname(fname):
 	cnt = 0
@@ -44,7 +41,7 @@ def get_bakname(fname):
 	return bname
 
 #--------------------------------------------------------------------
-# Create a backup of file data to be deleted or inserted
+# Create a backup of file data to be deleted or inserted (not used)
 
 def create_backup(fname, delimiter):
 	
@@ -58,13 +55,13 @@ def create_backup(fname, delimiter):
 #--------------------------------------------------------------------
 # Get data from csv file and append it to a list
 	
-def get_data(fname, delimiter):
+def get_data(ifile, delimiter):
 	data = []
 	
-	create_backup(fname, delimiter)
+	#create_backup(fname, delimiter)
 	
 	try:
-		ip = open(fname)
+		ip = open(ifile)
 	except:
 		print 'Could not open input file in get_data()'
 		sys.exit(7)
@@ -81,10 +78,10 @@ def get_data(fname, delimiter):
 # ------------------------------------------------------------------	
 #Deletes columns (row[column]) from list of col numbers
 
-def delete_cols(fname, cols, header, delimiter): 	
+def delete_cols(ifile, ofile, cols, header, delimiter): 	
 	
 	# get list of file data
-	data = get_data(fname, delimiter)
+	data = get_data(ifile, delimiter)
 		
 	# Make sure input file had data in it
 	if not len(data):
@@ -96,13 +93,13 @@ def delete_cols(fname, cols, header, delimiter):
 		print 'cols is greater than columns in data.'
 		sys.exit(5)
 			
-	# Open csv file and truncate it	
+	# Open output file
 	try:
-		op = open(fname, 'w+')
+		op = open(ofile, 'w+')
 	except:
-		print 'Could not open input file in delete_cols().'
+		print 'Could not open output file in delete_cols().'
 		sys.exit(4)
-	
+
 	count = 0
 	
 	# if there is a header, save it
@@ -136,19 +133,19 @@ def delete_cols(fname, cols, header, delimiter):
 # -----------------------------------------------------------------	
 # Deletes rows (skips them) if regex do not match cells
 
-def delete_rows(fname, mdict, header, delimiter):
+def delete_rows(ifile, ofile, mdict, header, delimiter):
 	
 	# Get data
-	data = get_data(fname, delimiter)
+	data = get_data(ifile, delimiter)
 	
 	# Make sure the input file had data in it
 	if not len(data):
 		print 'No data to process in delete_rows()'
 		sys.exit(3)
 			
-	# Open the csv file	and truncate it 	
+	# Open the output file	
 	try:
-		of = open(fname,'w+')
+		op = open(ofile,'w+')
 	except:
 		print 'Could not open file in delete_rows()'
 		sys.exit(2)
@@ -172,20 +169,19 @@ def delete_rows(fname, mdict, header, delimiter):
 				break
 			else:
 				is_match = True
-			
+				break
+
 		# if all matches are good, write the row
 		if is_match == True:	
 			# put the header back
 			if header and count == 0:
-				of.write(delimeter.join(head))
+				op.write(delimeter.join(head))
 			# write the row
-			of.write(delimiter.join(row))
+			op.write(delimiter.join(row))
 			
-			count += 1
-			
-		is_match = False
+			count += 1			
 	
-	of.close()
+	op.close()
 
 	return count
 
@@ -260,12 +256,12 @@ def main():
 	if TESTING:
 		# Remove columns using column numbers provided by list
 		cols = [2, 3, 7, 8, 9, 10, 13, 14]
-		ncols = delete_cols('csv-testdata.csv' , cols, False, ',')
+		ncols = delete_cols('csv-testdata.csv', 'csv-cols.csv', cols, False, ',')
 		print '\nProcessed ' + str(ncols) + ' records.'
 	
 		# Delete rows using dict with column num and regex pattern to match against
 		dict = {3:'^(SP|NP|NF)$'}
-		nrows = delete_rows('csv-testdata.csv' , dict, False, ',')
+		nrows = delete_rows('csv-cols.csv', 'csv-rows.csv', dict, False, ',')
 		print 'Deleted ' + str(ncols-nrows) + ' rows.'
 	
 	sys.exit(0)
