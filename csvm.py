@@ -1,5 +1,8 @@
 '''
-csvm.py - simple delete rows and cols from a csv, build a json document
+csvm.py - simple delete rows and cols from csv files. Additional functionality:  
+Merge csv files and or build a json document
+
+For merging large csvfiles, and deleting unwanted rows and columns
 
 For row and column deletion, reads data into a list from the input file 
 and then after creating a backup, outputs changed data back to input file name 
@@ -7,9 +10,9 @@ and then after creating a backup, outputs changed data back to input file name
 Todo:
 --------------------------------------------------------------------
 insert_header()
-csv_to_json()
+to_json()
 
-* merge operations *
+* other merge operations *
 '''
 
 import sys
@@ -184,19 +187,66 @@ def delete_rows(fname, mdict, header, delimiter):
 
 	return count
 
+# -------------------------------------------------------------------
+# Merge multiple csv files
+
+def merge_files(file_list, output_file):
+	
+	if os.path.isfile(output_file):
+		print 'Ouput file already exists'
+		sys.exit(4)
+
+	try:
+		op = open(output_file, 'w+')
+	except:
+		print "Unable to open output file in merge_files()"
+		sys.exit(3)
+
+	count = 0	
+	for input_file in file_list:		
+		try:
+			ip = open(input_file)
+		except:
+			print "Unable to input file in merge_files()"
+			sys.exit(2)		
+		
+		ip.readline()
+		while(line):
+			op.write(line)
+			count += 1
+		ip.close()
+
+	op.close()
+	return count
+	
 
 # -------------------------------------------------------------------
 # Inserts a header. Only useful if there never was one
 
-def insert_header(ifile, hlist, delimiter):
+def insert_header(input_name, hlist, delimiter):
 	# Todo
-	sys.exit(2)
+	head = hlist.split(delimiter)
+
+	try:
+		ip = open(input_name)
+	except:
+		print 'Unable to open file to insert header.'
+		sys.xit(2)
+
+	# create a temporary file
+	# write header
+	# write contents of input to tmp
+	# close input
+	# delete input file
+	# rename tmp file to input file name
+
+
 	
 		
 # --------------------------------------------------------------------	
 # Make a json document from csv data
 
-def csv_to_json(ifile, ofile, header, delimiter):
+def to_json(ifile, ofile, header, delimiter):
 	# Todo: Create utf-8 json from csv
 	sys.exit(1)
 
