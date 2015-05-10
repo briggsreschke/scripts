@@ -3,6 +3,13 @@ csvm.py - simple delete rows and cols from a csv, and extra build a json documen
 
 For row and column deletion, reads data into a list from the input file 
 and then after creating a backup, outputs changed data back to input file name 
+
+Todo:
+--------------------------------------------------------------------
+insert_header()
+insert_row()
+csv_to_json()
+
 '''
 
 import sys
@@ -16,7 +23,6 @@ TESTING = 1
 # Get backup file name
 
 def get_bakname(fname):
-
 	cnt = 0
 	foo = True
 	
@@ -33,7 +39,7 @@ def get_bakname(fname):
 	return bname
 
 #--------------------------------------------------------------------
-# Copy data to a backup file
+# Create a backup of file data to be deleted or inserted
 
 def create_backup(fname, delimiter):
 	
@@ -195,9 +201,9 @@ def insert_header(ifile, hlist, delimiter):
 	
 		
 # --------------------------------------------------------------------	
-# Make a json document from csv
+# Make a json document from csv data
 
-def to_json(ifile, ofile, header, delimiter):
+def csv_to_json(ifile, ofile, header, delimiter):
 	# Todo: Create utf-8 json from csv
 	sys.exit(1)
 
@@ -208,7 +214,6 @@ def to_json(ifile, ofile, header, delimiter):
 def main():
 	
 	if TESTING:
-
 		# Remove columns using column numbers provided by list
 		cols = [2, 3, 7, 8, 9, 10, 13, 14]
 		ncols = delete_cols('csv-testdata.csv' , cols, False, ',')
