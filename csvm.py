@@ -1,5 +1,5 @@
 '''
-csvm.py - simple delete rows and cols from a csv, and extra build a json document
+csvm.py - simple delete rows and cols from a csv, build a json document
 
 For row and column deletion, reads data into a list from the input file 
 and then after creating a backup, outputs changed data back to input file name 
@@ -7,9 +7,9 @@ and then after creating a backup, outputs changed data back to input file name
 Todo:
 --------------------------------------------------------------------
 insert_header()
-insert_row()
 csv_to_json()
 
+* merge operations *
 '''
 
 import sys
@@ -183,13 +183,6 @@ def delete_rows(fname, mdict, header, delimiter):
 	of.close()
 
 	return count
-
-# -------------------------------------------------------------------
-# Append rows to csvfile
-
-def append_rows(fname, rows):
-	# Todo
-	sys.exit(3)
 
 
 # -------------------------------------------------------------------
