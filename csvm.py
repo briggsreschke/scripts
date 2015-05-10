@@ -66,7 +66,7 @@ def delete_cols(data, cols, header):
 # -----------------------------------------------------------------	
 # Deletes rows (skips them) if regex do not match cells
 
-def delete_rows(data, dict, header):
+def delete_rows(data, dic, header):
 	
 	# Make sure the input file had data in it
 	if not len(data):
@@ -83,7 +83,7 @@ def delete_rows(data, dict, header):
 	
 	for row in data:	
 		# iterate through key:value pairs {column number:regex}
-		for key, value in mdict.iteritems():
+		for key, value in dic.iteritems():
 			# see if there's a match agains't regex. If not, skip it
 			p = re.compile(value)				
 			if not p.match(row[key]):
@@ -91,7 +91,6 @@ def delete_rows(data, dict, header):
 				break
 			else:
 				is_match = True
-				break
 
 		# if all matches are good, write the row
 		if is_match == True:	
