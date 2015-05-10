@@ -21,12 +21,12 @@ def get_bakname(fname):
 	foo = True
 	
 	# make backup filename to start with
-	bname = fname[:-3] + '.bak' +'.csv'
-	# try backup file names until to get an unused one
+	bname = fname + '.bak'
+	# try backup file names until an unused one
 	while(foo):
 		if os.path.isfile(bname):
 			cnt += 1
-			bname = fname[:-4] + '.bak' + str(cnt) + '.csv'
+			bname = fname + '.bak' + str(cnt) 
 		else:
 			foo = False
 	
@@ -37,7 +37,6 @@ def get_bakname(fname):
 
 def create_backup(fname, delimiter):
 	
-	# get name of backup file
 	bname = get_bakname(fname)
 	try:
 		shutil.copyfile(fname, bname)
@@ -208,6 +207,7 @@ def to_json(ifile, ofile, header, delimiter):
 def main():
 	
 	if TESTING:
+
 		# Remove columns using column numbers provided by list
 		cols = [2, 3, 7, 8, 9, 10, 13, 14]
 		ncols = delete_cols('csv-testdata.csv' , cols, False, ',')
@@ -217,6 +217,7 @@ def main():
 		dict = {3:'^(SP|NP|NF)$'}
 		nrows = delete_rows('csv-testdata.csv' , dict, False, ',')
 		print 'Deleted ' + str(ncols-nrows) + ' rows.'
+
 
 if __name__ == '__main__':
 	
