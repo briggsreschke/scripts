@@ -195,12 +195,12 @@ def main():
 	
 	if TESTING:
 		cols = [2,3, 7, 8, 9, 10, 13, 14]
-		cn = delete_cols('csvtest-data.csv' , cols, False, ',')
+		cn = delete_cols('csv-testdata.csv' , cols, False, ',')
 	
 		print '\nProcessed ' + str(cn) + ' records'
 	
 		dict = {3:'^(SP|NP|NF)$'}
-		rn = delete_rows('csvtest-data.csv' , dict, False, ',')
+		rn = delete_rows('csv-testdata.csv' , dict, False, ',')
 
 		print 'Deleted ' + str(cn-rn) + ' rows'
 
