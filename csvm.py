@@ -12,7 +12,7 @@ Todo:
 insert_header()
 to_json()
 
-* other merge operations *
+* Additional merge operations *
 '''
 
 import sys
@@ -190,25 +190,24 @@ def delete_rows(fname, mdict, header, delimiter):
 # -------------------------------------------------------------------
 # Merge multiple csv files
 
-def merge_files(file_list, output_file):
+def merge_files(file_list, ofile):
 	
 	if os.path.isfile(output_file):
 		print 'Ouput file already exists'
 		sys.exit(4)
 
 	try:
-		op = open(output_file, 'w+')
+		op = open(ofile, 'w+')
 	except:
 		print "Unable to open output file in merge_files()"
 		sys.exit(3)
 
 	count = 0	
-	for input_file in file_list:		
+	for ifile in file_list:		
 		try:
-			ip = open(input_file)
+			ip = open(ifile)
 		except:
-			print "Unable to input file in merge_files()"
-			sys.exit(2)		
+			continue		
 		
 		ip.readline()
 		while(line):
@@ -247,8 +246,9 @@ def insert_header(input_name, hlist, delimiter):
 # --------------------------------------------------------------------	
 # Make a json document from csv data
 
-def to_json(ifile, ofile, header, delimiter):
+def to_json(ifile, ofile, delimiter):
 	# Todo: Create utf-8 json from csv
+	# requires a header
 	sys.exit(1)
 
 
