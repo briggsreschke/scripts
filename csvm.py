@@ -58,6 +58,7 @@ def get_data(fname, delimiter):
 		print 'Could not open input file in get_data()'
 		sys.exit(7)
 	
+	#Read data into a list ad return it to delete and insert routines
 	line = ip.readline()	
 	while(line):
 		data.append(line.split(delimiter))
