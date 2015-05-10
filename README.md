@@ -8,6 +8,6 @@
   </tr>
   <tr>
     <td><h6>csvm.py</h6></td>
-    <td>Utility for deleting rows and columns from a csv file. Todo: csv-to-json; merge operations.</td> 
+    <td>Utility for deleting rows and columns from a csv file and merging multiple csv's./td> 
   </tr>
 </p>
