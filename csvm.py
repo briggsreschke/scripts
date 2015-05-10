@@ -1,18 +1,22 @@
 '''
-csvm.py - simple delete rows and cols from csv files. Additional functionality:  
-Merge csv files and or build a json document
+--------------------------------------------------------------------------
+csvm.py - Ver 1.0 - Last updated 5.9.2015
 
-For merging large csvfiles, and deleting unwanted rows and columns
+Simple merge and delete operations for large csv files
 
-For row and column deletion, reads data into a list from the input file 
-and then after creating a backup, outputs changed data back to input file name 
-
-Todo:
---------------------------------------------------------------------
-insert_header()
-to_json()
-
-* Additional merge operations *
+---
+For row and column deletion: from the input file, read data into a list 
+and then after creating a backup, output changed data back to file with 
+same name as the input.
+---
+For merging csv files: delete unwanted rows and columns from any csv. 
+---
+For merging: takes input files as a list and then write append all to ouput.
+---
+Additional functionality: build a json document from any csv.
+--
+Todo: insert_header(), to_json()
+--------------------------------------------------------------------------
 '''
 
 import sys
