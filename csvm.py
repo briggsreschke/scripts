@@ -214,8 +214,9 @@ def merge_files(file_list, output_file):
 		while(line):
 			op.write(line)
 			count += 1
+			ip.readline()
 		ip.close()
-
+	
 	op.close()
 	return count
 	
