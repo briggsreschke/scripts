@@ -4,7 +4,7 @@
   </tr>
   <tr>
     <td><h6> aparse.py </h6></td> 
-    <td>An apache log file parser with optional routines for greater filtering.</td>
+    <td>An apache log file parser with optional routines for additional filtering.</td>
   </tr>
   <tr>
     <td><h6>csvm.py</h6></td>
