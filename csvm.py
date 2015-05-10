@@ -1,6 +1,8 @@
 '''
 csvm.py - simple delete rows and cols from a csv, and extra build a json document
 
+For row and column deletion, reads data into a list from the input file 
+and then after creating a backup, outputs changed data back to input file name 
 '''
 
 import sys
@@ -37,7 +39,11 @@ def create_backup(fname, delimiter):
 	
 	# get name of backup file
 	bname = get_bakname(fname)
-	shutil.copyfile(fname, bname)
+	try:
+		shutil.copyfile(fname, bname)
+	except:
+		print "Unable to make backup copy of data"
+		sys.exit(8)
 
 #--------------------------------------------------------------------
 # Get data from csv file and append it to a list
@@ -51,7 +57,7 @@ def get_data(fname, delimiter):
 		ip = open(fname)
 	except:
 		print 'Could not open input file in get_data()'
-		sys.exit(15)
+		sys.exit(7)
 	
 	line = ip.readline()	
 	while(line):
@@ -72,19 +78,19 @@ def delete_cols(fname, cols, header, delimiter):
 	# Make sure input file had data in it
 	if not len(data):
 		print 'No data to process in delete_cols()'
-		sys.exit(2)
+		sys.exit(6)
 	
 	# Make sure number of columns does not exceed the data cols
 	if len(cols) > len(data):
 		print 'cols is greater than columns in data.'
-		sys.exit(12)
+		sys.exit(5)
 			
 	# Open csv file and truncate it	
 	try:
 		of = open(fname, 'w+')
 	except:
 		print 'Could not open input file in delete_cols().'
-		sys.exit(15)
+		sys.exit(4)
 	
 	count = 0
 	
@@ -124,16 +130,17 @@ def delete_rows(fname, mdict, header, delimiter):
 	# Get data
 	data = get_data(fname, delimiter)
 	
+	# Make sure the input file had data in it
 	if not len(data):
 		print 'No data to process in delete_rows()'
-		sys.exit(2)
+		sys.exit(3)
 			
 	# Open the csv file	and truncate it 	
 	try:
 		of = open(fname,'w+')
 	except:
 		print 'Could not open file in delete_rows()'
-		sys.exit(10)
+		sys.exit(2)
 
 			
 	count = 0			
@@ -172,38 +179,44 @@ def delete_rows(fname, mdict, header, delimiter):
 	return count
 
 # -------------------------------------------------------------------
+# Append rows to csvfile
+
+def append_rows(fname, rows):
+	# Todo
+	sys.exit(3)
+
+
+# -------------------------------------------------------------------
 # Inserts a header. Only useful if there never was one
 
 def insert_header(ifile, hlist, delimiter):
-
-	if not os.path.isfile(ifile):
-		print 'Input file ' + ifile + ' does not exist'
-		sys.exit(5)
+	# Todo
+	sys.exit(2)
 	
 		
 # --------------------------------------------------------------------	
 # Make a json document from csv
 
 def to_json(ifile, ofile, header, delimiter):
-	# Create utf-8 json from csv
+	# Todo: Create utf-8 json from csv
+	sys.exit(1)
 
-	print
 
 # --------------------------------------------------------------------	
-# Make a json document from csv	
-			
+# Main
+
 def main():
 	
 	if TESTING:
-		cols = [2,3, 7, 8, 9, 10, 13, 14]
-		cn = delete_cols('csvm-test.csv' , cols, False, ',')
+		# Remove columns using column numbers provided by list
+		cols = [2, 3, 7, 8, 9, 10, 13, 14]
+		ncols = delete_cols('csv-testdata.csv' , cols, False, ',')
+		print '\nProcessed ' + str(ncols) + ' records.'
 	
-		print '\nProcessed ' + str(cn) + ' records'
-	
+		# Delete rows using dict with column num and regex patterns to match against
 		dict = {3:'^(SP|NP|NF)$'}
-		rn = delete_rows('csvm-test.csv' , dict, False, ',')
-
-		print 'Deleted ' + str(cn-rn) + ' rows'
+		nrows = delete_rows('csv-testdata.csv' , dict, False, ',')
+		print 'Deleted ' + str(ncols-nrows) + ' rows.'
 
 if __name__ == '__main__':
 	
