@@ -1,5 +1,3 @@
-<h4> Data Management and Data Automation </h4>
-
 <table>
   <tr>
     <th colspan=2><h4> Data Management and Data Automation </h4></th>
