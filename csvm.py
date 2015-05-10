@@ -16,48 +16,8 @@ For instance:
 import sys
 import os.path
 import re
-import shutil
 
 TESTING = 1
-
-#--------------------------------------------------------------------
-# Write to new csv file
-
-def write_data(data, fname):
-
-	# Check to see if file exists
-	if os.path.isfile(fname):
-		print 'output file already exists'
-		sys.exit(7)
-	# Open output file
-	try:
-		op = open(fname, 'w+')
-	except:
-		print 'Problem creating output file'
-		exit(6)
-	# Write data to output 
-	for val in data:
-		op.write(delimiter.join(val))
-
-	op.close()
-
-def read_data(fname, delimiter):
-	data = []
-	
-	try:
-		ip = open(fname)
-	except:
-		print 'Could not open input file in get_data()'
-		sys.exit(7)
-	
-	#Read data into a list ad return it to delete and insert routines
-	line = ip.readline()	
-	while(line):
-		data.append(line.split(delimiter))
-		line = ip.readline()
-	
-	ip.close()
-	return data
 		
 # ------------------------------------------------------------------	
 #Deletes columns (row[column]) from list of col numbers
@@ -98,8 +58,7 @@ def delete_cols(data, cols, header):
 		else:	
 			# write the row with elimnated cols
 			tmp[count] = row
-			#op.write(delimiter.join(row))	
-		# increment row index
+
 		count += 1			
 
 	return tmp
@@ -178,16 +137,46 @@ def merge_files(file_list, ofile):
 	op.close()
 	
 	return count
-		
-		
-# --------------------------------------------------------------------	
-# Make a json document from csv data
 
-def to_json(ifile, ofile, delimiter):
-	# Todo: Create utf-8 json from csv
-	# requires a header
-	sys.exit(1)
+#--------------------------------------------------------------------
+# Write to new csv file
 
+def write_data(data, fname):
+
+	# Check to see if file exists
+	if os.path.isfile(fname):
+		print 'output file already exists'
+		sys.exit(7)
+	# Open output file
+	try:
+		op = open(fname, 'w+')
+	except:
+		print 'Problem creating output file'
+		exit(6)
+	# Write data to output 
+	for val in data:
+		op.write(delimiter.join(val))
+
+	op.close()
+
+def read_data(fname, delimiter):
+	data = []
+	
+	try:
+		ip = open(fname)
+	except:
+		print 'Could not open input file in get_data()'
+		sys.exit(7)
+	
+	#Read data into a list 
+	line = ip.readline()	
+	while(line):
+		data.append(line.split(delimiter))
+		line = ip.readline()
+	
+	ip.close()
+	return data		
+		
 
 # --------------------------------------------------------------------	
 # Main
@@ -211,7 +200,7 @@ def main():
 	
 	sys.exit(0)
 
-if __name__ == '__main__':
+if __name__ == '__main__':	
 	
 	main()
 
