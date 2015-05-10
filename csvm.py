@@ -4,10 +4,12 @@ csvm.py - Ver 1.0 - Last updated 5.9.2015
 
 Simple merge and delete operations for csv files
 
-- Merge csv files.
-- Read data into an array. 
-- Do column and row delete operations on array.
-- Write array to a new file.
+For instance:
+1. Merge csv files (optional).
+2. Read data into an array. 
+3. Do column and or row delete operations on array.
+4. Write array to a new file.
+5. goto step 2
 --------------------------------------------------------------------------
 '''
 
@@ -17,37 +19,6 @@ import re
 import shutil
 
 TESTING = 1
-
-#--------------------------------------------------------------------
-# Get backup file name
-
-def get_bakname(fname):
-	cnt = 0
-	foo = True
-	
-	# make backup filename to start with
-	bname = fname + '.bak'
-	# try backup file names until an unused one
-	while(foo):
-		if os.path.isfile(bname):
-			cnt += 1
-			bname = fname + '.bak' + str(cnt) 
-		else:
-			foo = False
-	
-	return bname
-
-#--------------------------------------------------------------------
-# Create a backup of file data to be deleted or inserted
-
-def create_backup(fname, delimiter):
-	
-	bname = get_bakname(fname)
-	try:
-		shutil.copyfile(fname, bname)
-	except:
-		print "Unable to make backup copy of data"
-		sys.exit(8)
 
 #--------------------------------------------------------------------
 # Write to new csv file
