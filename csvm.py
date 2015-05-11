@@ -93,8 +93,9 @@ def delete_rows(data, dic, header):
 				tmp[count] = head
 			# write the row
 			tmp[count] = row
+			match = False
 			
-			count += 1			
+                        count += 1			
 
 	return tmp
 
