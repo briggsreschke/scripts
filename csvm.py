@@ -4,11 +4,14 @@ csvm.py - Ver 1.0 - Last updated 5.9.2015
 
 Simple search, merge and delete operations for csv files.
 
-Uses regular expressions as delete criteria for columns:
-	dict = {colnum:pattern, ...}
+Use regular expressions to search rows for matches:
+	dict = {col_num:pattern, ...}
 
-For search (or row deletion) uses a list of row numbers:
-	list = [row1, row2, ...]
+For column deletion uses a list of column numbers:
+	list = [col1, col2, ...]
+
+Merge a list of files:
+	files = [file1, file2, ...]
 
 --------------------------------------------------------------------
 '''
@@ -109,7 +112,7 @@ def search_rows(data, dic, header):
 # -------------------------------------------------------------------
 # Merge multiple csv files
 
-def merge_files(file_list, ofile):
+def merge_files(file_list, ofile, header):
 	
 	if os.path.isfile(ofile):
 		print 'Ouput file already exists'
@@ -128,11 +131,15 @@ def merge_files(file_list, ofile):
 		except:
 			continue		
 		
-		line = ip.readline()
+		line = ip.readline()		
 		while(line):
+			# skip on successive if header
+			if header and count:
+				continue
 			op.write(line)
 			count += 1
 			line = ip.readline()
+		
 		ip.close()
 	
 	op.close()
@@ -195,8 +202,8 @@ def main():
 	data = delete_cols(data, cols, False)
 
 	# Delete rows - dict with column num and regex pattern for match
-	dict = {3:'^(SP|NP|NF)$'}
-	data = search_rows(data, dict, False)
+	dic = {3:'^(SP|NP|NF)$'}
+	data = search_rows(data, dic, False)
 
 	# Write the data
 	write_data(data, 'test-out.csv', ',')
