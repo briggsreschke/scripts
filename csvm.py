@@ -188,18 +188,18 @@ def read_data(fname, delimiter):
 def main():
 
 	# Read data
-		data = read_data('test-in.csv', ',')
+	data = read_data('test-in.csv', ',')
 	
 	# Remove columns using column numbers provided by list
-		cols = [2, 3, 7, 8, 9, 10, 13, 14]
-		data = delete_cols(data, cols, False)
+	cols = [2, 3, 7, 8, 9, 10, 13, 14]
+	data = delete_cols(data, cols, False)
 
 	# Delete rows - dict with column num and regex pattern for match
-		dict = {3:'^(SP|NP|NF)$'}
-		data = delete_rows(data, dict, False)
+	dict = {3:'^(SP|NP|NF)$'}
+	data = delete_rows(data, dict, False)
 
-		# Write the data
-		write_data(data, 'test-out.csv', ',')
+	# Write the data
+	write_data(data, 'test-out.csv', ',')
 
 
 	sys.exit(0)
