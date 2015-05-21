@@ -50,8 +50,7 @@ def delete_cols(data, cols, header):
 			# if header delete column name of delete column
 			if header:
 				del head[column]
-		
-		print row
+
 		# write header if there is one
 		if header and count == 0:
 			tmp.append(head)
