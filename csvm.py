@@ -1,16 +1,10 @@
 '''
---------------------------------------------------------------------------
+--------------------------------------------------------------------
 csvm.py - Ver 1.0 - Last updated 5.9.2015
 
 Simple merge and delete operations for csv files
 
-For instance:
-1. Merge csv files (optional).
-2. Read data into an array. 
-3. Do column and or row delete operations on array.
-4. Write array to a new file.
-5. goto step 2
---------------------------------------------------------------------------
+--------------------------------------------------------------------
 '''
 
 import sys
@@ -100,8 +94,9 @@ def delete_rows(data, dic, header):
 			# write the row
 			else:
 				tmp.append(row)
+			
 			is_match = False		
-			count += 1			
+		count += 1			
 
 	return tmp
 
