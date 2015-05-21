@@ -8,6 +8,6 @@
   </tr>
   <tr>
     <td><h6>csvm.py</h6></td>
-    <td>Utility for merging csv files and for deleting rows and columns from any csv.</td> 
+    <td>Simple search, delete, merge for csv files.</td> 
   </tr>
 </p>

@@ -2,12 +2,12 @@
 --------------------------------------------------------------------
 csvm.py - Ver 1.0 - Last updated 5.9.2015
 
-Simple merge and delete operations for csv files.
+Simple search, merge and delete operations for csv files.
 
 Uses regular expressions as delete criteria for columns:
 	dict = {colnum:pattern, ...}
 
-For row deletion uses a list of row numbers:
+For search (or row deletion) uses a list of row numbers:
 	list = [row1, row2, ...]
 
 --------------------------------------------------------------------
@@ -66,7 +66,7 @@ def delete_cols(data, cols, header):
 # -----------------------------------------------------------------	
 # Deletes rows (skips them) if regex do not match cells
 
-def delete_rows(data, dic, header):
+def search_rows(data, dic, header):
 	
 	# Make sure the input file had data in it
 	if not len(data):
@@ -169,7 +169,7 @@ def read_data(fname, delimiter):
 	try:
 		ip = open(fname)
 	except:
-		print 'Could not open input file in get_data()'
+		print 'Could not open input file in read_data()'
 		sys.exit(7)
 	
 	#Read data into a list 
@@ -196,13 +196,13 @@ def main():
 
 	# Delete rows - dict with column num and regex pattern for match
 	dict = {3:'^(SP|NP|NF)$'}
-	data = delete_rows(data, dict, False)
+	data = search_rows(data, dict, False)
 
 	# Write the data
 	write_data(data, 'test-out.csv', ',')
 
-
 	sys.exit(0)
+
 
 if __name__ == '__main__':	
 	
