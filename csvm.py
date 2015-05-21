@@ -5,10 +5,10 @@ csvm.py - Ver 1.0 - Last updated 5.9.2015
 Simple merge and delete operations for csv files.
 
 Uses regular expressions as delete criteria for columns:
-	as a dict {colnum:pattern, ...}
+	dict = {colnum:pattern, ...}
 
 For row deletion uses a list of row numbers:
-	[row1, row2, ...]
+	list = [row1, row2, ...]
 
 --------------------------------------------------------------------
 '''
