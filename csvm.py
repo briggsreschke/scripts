@@ -111,7 +111,7 @@ def delete_rows(data, dic, header):
 
 def merge_files(file_list, ofile):
 	
-	if os.path.isfile(output_file):
+	if os.path.isfile(ofile):
 		print 'Ouput file already exists'
 		sys.exit(4)
 
@@ -122,17 +122,17 @@ def merge_files(file_list, ofile):
 		sys.exit(3)
 
 	count = 0	
-	for ifile in file_list:		
+	for f in file_list:		
 		try:
-			ip = open(ifile)
+			ip = open(f)
 		except:
 			continue		
 		
-		ip.readline()
+		line = ip.readline()
 		while(line):
 			op.write(line)
 			count += 1
-			ip.readline()
+			line = ip.readline()
 		ip.close()
 	
 	op.close()
@@ -186,22 +186,22 @@ def read_data(fname, delimiter):
 # Main
 
 def main():
+
+	# Read data
+		data = read_data('test-in.csv', ',')
 	
-	if TESTING:
-		# Read data
-		data = read_data('data/csv-testdata.csv', ',')
-		
-		# Remove columns using column numbers provided by list
+	# Remove columns using column numbers provided by list
 		cols = [2, 3, 7, 8, 9, 10, 13, 14]
 		data = delete_cols(data, cols, False)
-	
-		# Delete rows - dict with column num and regex pattern for match
+
+	# Delete rows - dict with column num and regex pattern for match
 		dict = {3:'^(SP|NP|NF)$'}
 		data = delete_rows(data, dict, False)
-	
+
 		# Write the data
-		write_data(data, 'data/csv-testoutput.csv', ',')
-	
+		write_data(data, 'test-out.csv', ',')
+
+
 	sys.exit(0)
 
 if __name__ == '__main__':	
