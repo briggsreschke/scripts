@@ -35,7 +35,7 @@ def delete_cols(data, cols, header):
 		sys.exit(5)
 			
 	count = 0
-	tmp = []
+	tmp = [] * len(data)
 
 	# if there is a header, save it
 	if header:
@@ -46,18 +46,19 @@ def delete_cols(data, cols, header):
 		for idx, column in enumerate(cols):
 			column -= idx
 			del row[column]		
-			
+
 			# if header delete column name of delete column
 			if header:
 				del head[column]
 		
+		print row
 		# write header if there is one
 		if header and count == 0:
-			tmp[count] = delimeter.join(head)
+			tmp.append(head)
 			#op.write(delimeter.join(head))
 		else:	
 			# write the row with elimnated cols
-			tmp[count] = row
+			tmp.append(row)
 
 		count += 1			
 
@@ -82,9 +83,9 @@ def delete_rows(data, dic, header):
 		head = data[0]
 	
 	for row in data:	
-		# iterate through key:value pairs {column number:regex}
+		# iterate through {column number:regex}
 		for key, value in dic.iteritems():
-			# see if there's a match agains't regex. If not, skip it
+			# match agains't regex. If no match, skip.
 			p = re.compile(value)				
 			if not p.match(row[key]):
 				is_match = False
@@ -96,10 +97,11 @@ def delete_rows(data, dic, header):
 		if is_match == True:	
 			# put the header back
 			if header and count == 0:
-				tmp[count] = head
+				tmp.append(head)
 			# write the row
-			tmp[count] = row
-			
+			else:
+				tmp.append(row)
+			is_match = False		
 			count += 1			
 
 	return tmp
@@ -140,7 +142,7 @@ def merge_files(file_list, ofile):
 #--------------------------------------------------------------------
 # Write to new csv file
 
-def write_data(data, fname):
+def write_data(data, fname, delimiter):
 
 	# Check to see if file exists
 	if os.path.isfile(fname):
@@ -157,6 +159,9 @@ def write_data(data, fname):
 		op.write(delimiter.join(val))
 
 	op.close()
+
+#--------------------------------------------------------------------
+# Read data into list
 
 def read_data(fname, delimiter):
 	data = []
@@ -184,7 +189,7 @@ def main():
 	
 	if TESTING:
 		# Read data
-		data = read_data('csv-testdata.csv', ',')
+		data = read_data('data/csv-testdata.csv', ',')
 		
 		# Remove columns using column numbers provided by list
 		cols = [2, 3, 7, 8, 9, 10, 13, 14]
@@ -195,7 +200,7 @@ def main():
 		data = delete_rows(data, dict, False)
 	
 		# Write the data
-		write_data(data, 'csv-testoutput.csv', ',')
+		write_data(data, 'data/csv-testoutput.csv', ',')
 	
 	sys.exit(0)
 
