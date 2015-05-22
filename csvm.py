@@ -113,7 +113,7 @@ def search_rows(data, dic, header):
 # -------------------------------------------------------------------
 # Merge multiple csv files
 '''
-Todo: check to make sure columns are eqaul length
+Todo: check to make sure columns are equal length
 '''
 
 def merge_files(file_list, ofile, header):
@@ -139,14 +139,11 @@ def merge_files(file_list, ofile, header):
 	
 		line = ip.readline()		
 	
-		# Only write the first header 
-		if header and count == 0:
-			if line:
+		# Write the header once
+		if header and line:
+			if count == 0:
 				op.write(line)
-				line = ip.readline()
-		elif header:
-			if line:
-				line = ip.readline()
+			line = ip.readline()
 
 		# append lines to output
 		while(line):
