@@ -2,7 +2,7 @@
 --------------------------------------------------------------------
 csvm.py - Ver 1.0 - Last updated 5.9.2015
 
-Simple search, merge and delete operations for csv files.
+Simple search, merge and delete operations for csv files. 
 
 Use regular expressions to search rows for matches:
 	dict = {col_num:pattern, ...}
@@ -109,11 +109,15 @@ def search_rows(data, dic, header):
 
 	return tmp
 
+
 # -------------------------------------------------------------------
 # Merge multiple csv files
+'''
+Todo: check to make sure columns are eqaul length
+'''
 
 def merge_files(file_list, ofile, header):
-	
+
 	if os.path.isfile(ofile):
 		print 'Ouput file already exists'
 		sys.exit(4)
@@ -125,17 +129,27 @@ def merge_files(file_list, ofile, header):
 		sys.exit(3)
 
 	count = 0	
+	flag = False
+
 	for f in file_list:		
 		try:
 			ip = open(f)
 		except:
 			continue		
-		
+	
 		line = ip.readline()		
+	
+		# Only write the first header 
+		if header and count == 0:
+			if line:
+				op.write(line)
+				line = ip.readline()
+		elif header:
+			if line:
+				line = ip.readline()
+
+		# append lines to output
 		while(line):
-			# skip on successive if header
-			if header and count:
-				continue
 			op.write(line)
 			count += 1
 			line = ip.readline()
