@@ -13,6 +13,8 @@ For column deletion uses a list of column numbers:
 Merge a list of files:
 	files = [file1, file2, ...]
 
+Todo: 
+	* Search and replace
 --------------------------------------------------------------------
 """
 
@@ -23,6 +25,7 @@ import re
 
 # ------------------------------------------------------------------	
 # Determine is list of cols matches up with the data
+
 def check_cols(data, col_list):
 
 	ncols = len(data)	
@@ -35,6 +38,11 @@ def check_cols(data, col_list):
 		return False
 
 	return True
+
+# ------------------------------------------------------------------	
+# Return list of unique column numbers, sorted
+def uniq_cols(col_list):
+	return list(set(col_list))
 
 # ------------------------------------------------------------------	
 #Remove cells (columns) from row
@@ -52,11 +60,12 @@ def delete_cols(data, col_list, header):
 	tmp = []
 
 	# Remove duplicate col numbers and sort
-	data = list(set(data))
+	col_list = uniq_cols(col_list)
+	
 	#Make sure list of columns matches up with the data
 	if not check_cols(data, col_list):	
 		print 'column list isn\'t consistent with data'
-		sys.exit(4)
+		sys.exit(8)
 
 	# if there is a header
 	if header:
@@ -75,12 +84,16 @@ def delete_cols(data, col_list, header):
 def search_rows(data, match_dict, header):
 
 	tmp = []		
+	col_list = []
 	is_match = False
 		
-	# Make sure the input file had data in it
-	if not len(data):
-		print 'No data to process in delete_rows()'
-		sys.exit(3)
+	# Remove duplicate col numbers and sort
+	col_list = uniq_cols(match_dict.keys())
+
+	#Make sure columns to search do not exceed data colmuns
+	if not check_cols(data, col_list):
+		print 'columns in dict keys aren\'t consistent with data'
+		sys.exit(8)
 
 	# Deal with the header
 	if header:
@@ -109,29 +122,31 @@ def search_rows(data, match_dict, header):
 
 # -------------------------------------------------------------------
 # Merge multiple csv files
-'''
-Todo: check to make sure columns are equal length
-'''
 
 def merge_files(file_list, ofile, header):
 
 	if os.path.isfile(ofile):
 		print 'Ouput file already exists'
-		sys.exit(4)
+		sys.exit(6)
 
 	try:
 		op = open(ofile, 'w+')
 	except:
 		print "Unable to open output file in merge_files()"
-		sys.exit(3)
+		sys.exit(5)
 
 	count = 0	
 	flag = False
 
-	for f in file_list:		
+	for fname in file_list:		
+		if not os.path.isfile(fname):
+			print 'Input file ' + fname + ' does not exist.'
+			continue
+
 		try:
-			ip = open(f)
+			ip = open(fname)
 		except:
+			print 'Unable to open input file ' + fname + '.'
 			continue		
 	
 		line = ip.readline()
@@ -162,13 +177,13 @@ def write_data(data, fname, delimiter):
 	# Check to see if file exists
 	if os.path.isfile(fname):
 		print 'output file already exists'
-		sys.exit(7)
+		sys.exit(4)
 	# Open output file
 	try:
 		op = open(fname, 'w+')
 	except:
 		print 'Problem creating output file'
-		exit(6)
+		exit(3)
 	# Write data to output 
 	for val in data:
 		op.write(delimiter.join(val))
@@ -181,11 +196,15 @@ def write_data(data, fname, delimiter):
 def read_data(fname, delimiter):
 	data = []
 	
+	if not os.path.isfile(fname):
+		print 'Input file ' + fname + ' does not exist.'
+		sys.exit(2)
+
 	try:
 		ip = open(fname)
 	except:
 		print 'Could not open input file in read_data()'
-		sys.exit(7)
+		sys.exit(1)
 	
 	#Read data into a list 
 	line = ip.readline()	
