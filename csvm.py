@@ -1,4 +1,4 @@
-'''
+"""
 --------------------------------------------------------------------
 csvm.py - Ver 1.0 - Last updated 5.9.2015
 
@@ -14,7 +14,7 @@ Merge a list of files:
 	files = [file1, file2, ...]
 
 --------------------------------------------------------------------
-'''
+"""
 
 import sys
 import os.path
@@ -73,15 +73,15 @@ def delete_cols(data, col_list, header):
 # Deletes rows (skips them) if regex do not match cells
 
 def search_rows(data, match_dict, header):
-	
+
+	tmp = []		
+	is_match = False
+		
 	# Make sure the input file had data in it
 	if not len(data):
 		print 'No data to process in delete_rows()'
 		sys.exit(3)
 
-	tmp = []		
-	is_match = False
-	
 	# Deal with the header
 	if header:
 		tmp.append(data[0])
@@ -101,7 +101,7 @@ def search_rows(data, match_dict, header):
 		# if all matches are good, write the row
 		if is_match == True:	
 			tmp.append(row)
-			
+
 		is_match = False			
 
 	return tmp
