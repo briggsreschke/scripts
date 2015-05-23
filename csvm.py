@@ -23,14 +23,15 @@ import re
 TESTING = 1
 		
 # ------------------------------------------------------------------	
-#Deletes columns (row[column]) from list of col numbers
-
-def wipe_cols(row, cols):
+#Remove cells (columns) from row
+def delete_cells(row, cols):
 	for idx, column in enumerate(cols):
 		column -= idx
 		del row[column]
 	return row
 
+# ------------------------------------------------------------------	
+#Deletes columns (row[column]) from list of col numbers
 def delete_cols(data, cols, header): 	
 	
 	# Make sure input file had data in it
@@ -48,11 +49,11 @@ def delete_cols(data, cols, header):
 
 	# if there is a header, save it
 	if header:
-		tmp.append(wipe_cols(data[0]))
+		tmp.append(delete_cells(data[0]))
 		data = data[1:]
 
 	for row in data:		
-		tmp.append(wipe_cols(row))		
+		tmp.append(delete_cells(row))		
 
 	return tmp
 
