@@ -39,11 +39,23 @@ def delete_cols(data, cols, header):
 		print 'No data to process in delete_cols()'
 		sys.exit(6)
 	
+	# Sort Remove any repeated values from list of cols
+	data = list(set(data))
+	
+	# Do some error checking to make sure the list of cols matches up with the data
+	ncols = len(data)
+
 	# Make sure number of columns does not exceed the data cols
-	if len(cols) > len(data):
-		print 'cols is greater than columns in data.'
+	if len(cols) > ncols:
+		print 'number of cols is greater than columns in data.'
 		sys.exit(5)
-			
+	
+	# Make sure greatest col number isn't greater than number of columns
+	if max(cols) > ncols:
+		print 'max col is greater than number of columns in data'
+		sys.exit(6)
+	
+	# Deletetion part		
 	count = 0
 	tmp = [] * len(data)
 
