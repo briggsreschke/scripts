@@ -25,9 +25,9 @@ TESTING = 1
 # ------------------------------------------------------------------	
 #Remove cells (columns) from row
 def delete_cells(row, cols):
-	for idx, column in enumerate(cols):
-		column -= idx
-		del row[column]
+	for idx, cell in enumerate(cols):
+		cell -= idx
+		del row[cell]
 	return row
 
 # ------------------------------------------------------------------	
@@ -59,7 +59,7 @@ def delete_cols(data, cols, header):
 	count = 0
 	tmp = [] * len(data)
 
-	# if there is a header, save it
+	# if there is a header
 	if header:
 		tmp.append(delete_cells(data[0]))
 		data = data[1:]
@@ -82,7 +82,7 @@ def search_rows(data, dic, header):
 	tmp = []		
 	is_match = False
 	
-	# Save header and increment count
+	# Deal with the header
 	if header:
 		tmp.append(data[0])
 		data = data[1:]
