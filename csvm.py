@@ -20,15 +20,12 @@ import sys
 import os.path
 import re
 
-TESTING = 1
 
 # ------------------------------------------------------------------	
-# Do some error checking to make sure the list of cols matches up with the data
+# Determine is list of cols matches up with the data
 def check_cols(data, col_list):
 
-	# Sort Remove any repeated values from list of cols
-	ncols = len(data)
-	
+	ncols = len(data)	
 	# Make sure number of columns does not exceed the data cols
 	if len(col_list) > ncols:
 		return False
@@ -42,6 +39,7 @@ def check_cols(data, col_list):
 # ------------------------------------------------------------------	
 #Remove cells (columns) from row
 def delete_cells(row, col_list):
+	
 	for idx, cell in enumerate(cols):
 		cell -= idx
 		del row[cell]
@@ -74,7 +72,7 @@ def delete_cols(data, col_list, header):
 # -----------------------------------------------------------------	
 # Deletes rows (skips them) if regex do not match cells
 
-def search_rows(data, dic, header):
+def search_rows(data, match_dict, header):
 	
 	# Make sure the input file had data in it
 	if not len(data):
@@ -91,10 +89,11 @@ def search_rows(data, dic, header):
 	
 	for row in data:	
 		# iterate through {column number:regex}
-		for key, value in dic.iteritems():
+		for key, value in match_dict.iteritems():
 			# match agains't regex. If no match, skip.
 			p = re.compile(value)				
 			if not p.match(row[key]):
+				is_match = False
 				break
 			else:
 				is_match = True
@@ -135,8 +134,8 @@ def merge_files(file_list, ofile, header):
 		except:
 			continue		
 	
-		line = ip.readline()		
-	
+		line = ip.readline()
+
 		# Write the header once
 		if header and line:
 			if count == 0:
