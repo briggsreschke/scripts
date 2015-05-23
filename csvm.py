@@ -21,10 +21,27 @@ import os.path
 import re
 
 TESTING = 1
-		
+
+# ------------------------------------------------------------------	
+# Do some error checking to make sure the list of cols matches up with the data
+def check_cols(data, col_list):
+
+	# Sort Remove any repeated values from list of cols
+	ncols = len(data)
+	
+	# Make sure number of columns does not exceed the data cols
+	if len(cols) > ncols:
+		return []
+	
+	# Make sure greatest col number isn't greater than number of columns
+	if max(cols) > ncols:
+		return []
+
+	return data
+
 # ------------------------------------------------------------------	
 #Remove cells (columns) from row
-def delete_cells(row, cols):
+def delete_cells(row, col_list):
 	for idx, cell in enumerate(cols):
 		cell -= idx
 		del row[cell]
@@ -32,40 +49,25 @@ def delete_cells(row, cols):
 
 # ------------------------------------------------------------------	
 #Deletes columns (row[column]) from list of col numbers
-def delete_cols(data, cols, header): 	
-	
-	# Make sure input file had data in it
-	if not len(data):
-		print 'No data to process in delete_cols()'
-		sys.exit(6)
-	
-	# Sort Remove any repeated values from list of cols
-	data = list(set(data))
-	
-	# Do some error checking to make sure the list of cols matches up with the data
-	ncols = len(data)
-
-	# Make sure number of columns does not exceed the data cols
-	if len(cols) > ncols:
-		print 'number of cols is greater than columns in data.'
-		sys.exit(5)
-	
-	# Make sure greatest col number isn't greater than number of columns
-	if max(cols) > ncols:
-		print 'max col is greater than number of columns in data'
-		sys.exit(6)
-	
-	# Deletetion part		
+def delete_cols(data, col_list, header): 	
 	count = 0
-	tmp = [] * len(data)
+	tmp = []
+
+	# Remove duplicate col numbers and sort
+	data = list(set(data))
+	#Make sure list of columns matches up with the data
+	if not check_cols(data, col_list):	
+		print 'column list isn\'t consistent with data'
+		sys.exit(4)
 
 	# if there is a header
 	if header:
-		tmp.append(delete_cells(data[0]))
+		tmp.append(delete_cells(data[0], col_list))
 		data = data[1:]
-
+	
+	# Now the data
 	for row in data:		
-		tmp.append(delete_cells(row))		
+		tmp.append(delete_cells(row, col_list))		
 
 	return tmp
 
