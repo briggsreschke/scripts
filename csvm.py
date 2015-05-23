@@ -25,6 +25,12 @@ TESTING = 1
 # ------------------------------------------------------------------	
 #Deletes columns (row[column]) from list of col numbers
 
+def wipe_cols(row, cols):
+	for idx, column in enumerate(cols):
+		column -= idx
+		del row[column]
+	return row
+
 def delete_cols(data, cols, header): 	
 	
 	# Make sure input file had data in it
@@ -42,27 +48,11 @@ def delete_cols(data, cols, header):
 
 	# if there is a header, save it
 	if header:
-		head = data[0]
-	
-	for row in data:
-		# Delete rows provided in cols list
-		for idx, column in enumerate(cols):
-			column -= idx
-			del row[column]		
+		tmp.append(wipe_cols(data[0]))
+		data = data[1:]
 
-			# if header delete column name of delete column
-			if header:
-				del head[column]
-
-		# write header if there is one
-		if header and count == 0:
-			tmp.append(head)
-			#op.write(delimeter.join(head))
-		else:	
-			# write the row with elimnated cols
-			tmp.append(row)
-
-		count += 1			
+	for row in data:		
+		tmp.append(wipe_cols(row))		
 
 	return tmp
 
@@ -76,13 +66,13 @@ def search_rows(data, dic, header):
 		print 'No data to process in delete_rows()'
 		sys.exit(3)
 
-	tmp = []
-	count = 0			
+	tmp = []		
 	is_match = False
 	
 	# Save header and increment count
 	if header:
-		head = data[0]
+		tmp.append(data[0])
+		data = data[1:]
 	
 	for row in data:	
 		# iterate through {column number:regex}
@@ -90,22 +80,15 @@ def search_rows(data, dic, header):
 			# match agains't regex. If no match, skip.
 			p = re.compile(value)				
 			if not p.match(row[key]):
-				is_match = False
 				break
 			else:
 				is_match = True
 
 		# if all matches are good, write the row
 		if is_match == True:	
-			# put the header back
-			if header and count == 0:
-				tmp.append(head)
-			# write the row
-			else:
-				tmp.append(row)
+			tmp.append(row)
 			
-			is_match = False		
-		count += 1			
+		is_match = False			
 
 	return tmp
 
