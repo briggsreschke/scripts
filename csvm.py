@@ -30,14 +30,14 @@ def check_cols(data, col_list):
 	ncols = len(data)
 	
 	# Make sure number of columns does not exceed the data cols
-	if len(cols) > ncols:
-		return []
+	if len(col_list) > ncols:
+		return False
 	
 	# Make sure greatest col number isn't greater than number of columns
-	if max(cols) > ncols:
-		return []
+	if max(col_list) > ncols:
+		return False
 
-	return data
+	return True
 
 # ------------------------------------------------------------------	
 #Remove cells (columns) from row
