@@ -25,7 +25,6 @@ import re
 
 # ------------------------------------------------------------------	
 # Determine is list of cols matches up with the data
-
 def check_cols(data, col_list):
 
 	ncols = len(data)	
@@ -56,12 +55,11 @@ def delete_cells(row, col_list):
 # ------------------------------------------------------------------	
 #Deletes columns (row[column]) from list of col numbers
 def delete_cols(data, col_list, header): 	
-	count = 0
+
 	tmp = []
 
 	# Remove duplicate col numbers and sort
 	col_list = uniq_cols(col_list)
-	
 	#Make sure list of columns matches up with the data
 	if not check_cols(data, col_list):	
 		print 'column list isn\'t consistent with data'
@@ -89,7 +87,6 @@ def search_rows(data, match_dict, header):
 		
 	# Remove duplicate col numbers and sort
 	col_list = uniq_cols(match_dict.keys())
-
 	#Make sure columns to search do not exceed data colmuns
 	if not check_cols(data, col_list):
 		print 'columns in dict keys aren\'t consistent with data'
