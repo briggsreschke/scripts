@@ -77,7 +77,7 @@ def delete_cols(data, col_list, header):
 	return tmp
 
 # -----------------------------------------------------------------	
-# Deletes rows (skips them) if regex do not match cells
+# Search rows and return the ones that match if regex is a match 
 
 def search_rows(data, match_dict, header):
 
@@ -125,7 +125,6 @@ def merge_files(file_list, ofile, header):
 	if os.path.isfile(ofile):
 		print 'Ouput file already exists'
 		sys.exit(6)
-
 	try:
 		op = open(ofile, 'w+')
 	except:
@@ -161,7 +160,7 @@ def merge_files(file_list, ofile, header):
 			line = ip.readline()
 		
 		ip.close()
-	
+		
 	op.close()
 	
 	return count
