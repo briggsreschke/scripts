@@ -8,6 +8,8 @@
   </tr>
   <tr>
     <td><h6>csvm.py</h6></td>
-    <td>Simple search, delete, merge for csv files.</td> 
+    <td>Simple search, delete, merge for csv files.</td>
+  </tr>
+  <tr>
   </tr>
 </p>
