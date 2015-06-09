@@ -13,7 +13,7 @@
            <td>
                <h6>Todo</h6>
                <ul>
-                  <li>Return default values for optional routines that do not have them.</li>
+                  <li>Might could enhance the optional functions.</li>
                </ul>
            </td>
       </tr>
