@@ -28,7 +28,7 @@
            <td>
                <h6>Todo</h6>
                <ul>
-                  <li>Search and replace</li>
+                  <li>Search and replace in addition to search</li>
                   <li>Insert header row</li>
                </ul>
            </td>
