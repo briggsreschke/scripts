@@ -13,7 +13,7 @@
            <td>
                <h6>Todo</h6>
                <ul>
-                  <li>Might could enhance the optional functions.</li>
+                  <li>Complete</li>
                </ul>
            </td>
       </tr>
