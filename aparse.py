@@ -189,9 +189,11 @@ def main():
 		print 'Unable to proccess log file'
 		sys.exit(2) 
 	try:
-		# Get list of dicts
-		for r in arr
-			dic = get_dict(r)
+		# Print records
+		for r in arr		
+			dict = get_dict(r)
+			for key, value in iteritems(dict):
+				print key + ' : ' + value + '\n'
 			cnt += 1
 		
 		print 'Processed ' + str(cnt) + ' records\n'
