@@ -11,7 +11,6 @@
     
       <tr>
            <td>
-               <h6>Todo</h6>
                <ul>
                   <li>Complete</li>
                </ul>
