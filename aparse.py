@@ -1,4 +1,4 @@
-'''
+"""
 File: aparse.py
 
 GNU Public License
@@ -6,44 +6,44 @@ GNU Public License
 Parse Apache log file. regex pattern may need be altered to suit specfic log format
 Includes optional user customizable routines for filtering records or error checking.
 
-'''
+"""
 
 import sys
 import re
 import aparse
 
-_LOG_REGEX_ = '([(\d\.)]+) - - \[(.*?)\] "(.*?)" (\d+) (\d+) "(.*?)" "(.*?)"'
+LOG_REGEX = '([(\d\.)]+) - - \[(.*?)\] "(.*?)" (\d+) (\d+) "(.*?)" "(.*?)"'
 
 #Field index values into each logfile record
-_HOST_ = 0
-_DATE_ = 1
-_TIME_ = 1
-_TZ_ = 1
-_METHOD_ = 2
-_PATH_ = 2
-_PROTOCOL_ = 2
-_STATUS_ = 3
-_BYTES_ = 4
-_REFERER_ = 5
-_AGENT_ = 6
+HOST = 0
+DATE = 1
+TIME = 1
+TZ = 1
+METHOD = 2
+PATH = 2
+PROTOCOL = 2
+STATUS = 3
+BYTES = 4
+REFERER_ = 5
+AGENT = 6
 		
 
 # Optional adaptable routines for error checking or filtering individual log records
 
 def get_host(arr):
-	host = arr[_HOST_]
+	host = arr[HOST]
 	return host
 
 # Return the intact Unix time stamp
 def get_timestamp(arr):
-	timestamp = arr[_TIME_]     
+	timestamp = arr[TIME]     
 	return timestamp
 
 def get_time(arr):
 	regex =  '^(\d+\/\w+\/\d+)((:\d\d)+)\s'
 	
 	pattern = re.compile(regex)
-	match = pattern.match(arr[_TIME_])
+	match = pattern.match(arr[TIME])
 	
 	if not match:
 		return 'unknown'
@@ -53,7 +53,7 @@ def get_date(arr):
 	regex = '^(\d+\/\w+\/\d+)'
 	
 	pattern = re.compile(regex)
-	match = pattern.match(arr[_DATE_])
+	match = pattern.match(arr[DATE])
 	
 	if not match:
 		return 'unknown'
@@ -63,7 +63,7 @@ def get_timezone(arr):
 	regex =  '^(.+)(.+)(\s\S\d+)'
 	
 	pattern = re.compile(regex)
-	match = pattern.match(arr[_TZ_])
+	match = pattern.match(arr[TZ])
 	
 	if not match:
 		return 'unknown'
@@ -72,7 +72,7 @@ def get_timezone(arr):
 def get_method(arr):
 	# Could filter specific methods in the list
 	method_list = ['GET', 'POST', 'PUT', 'HEAD', 'OPTIONS', 'DELETE', 'TRACE', 'CONNECT']
-	tmp = arr[_METHOD_]
+	tmp = arr[METHOD]
 	method = tmp.split(' ')[0]
 	
  	if not method:
@@ -80,7 +80,7 @@ def get_method(arr):
 	return method	
 	
 def get_path(arr):
-	tmp = arr[_PATH_]
+	tmp = arr[PATH]
 	regex = '[\/(\S*)]+'
 	
 	pattern = re.compile(regex)
@@ -91,7 +91,7 @@ def get_path(arr):
 	return match.group()
 	
 def get_protocol(arr):
-	tmp = arr[_PROTOCOL_]
+	tmp = arr[PROTOCOL]
 	protocol = tmp.split(' ')[2]
 	
 	if not protocol:
@@ -100,14 +100,14 @@ def get_protocol(arr):
 
 def get_status(arr):
 	# Could filter only specific status codes
-	status = arr[_STATUS_]
-	
+	status = arr[STATUS]
+
 	if not status:
 		return 'unknown'
 	return status
 	
 def get_bytes(arr):	
-	bytes = arr[_BYTES_]
+	bytes = arr[BYTES]
 	
 	if not long(bytes):
 		return '0'
@@ -115,7 +115,7 @@ def get_bytes(arr):
 
 def get_referer(arr):	
        # Possibly more to do here
-	referer = arr[_REFERER_]
+	referer = arr[REFERER]
 	
 	if referer == '-':
 		return 'unknown'
@@ -123,7 +123,7 @@ def get_referer(arr):
 
 def get_agent(arr):
 	# Much more to possibly do here
-	agent = arr[_AGENT_]
+	agent = arr[AGENT]
 	
 	if agent == '-':
 		return 'unknwon'
