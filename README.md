@@ -10,11 +10,7 @@
       </tr>
     
       <tr>
-           <td>
-               <ul>
-                  <li>Complete</li>
-               </ul>
-           </td>
+           <td>Complete</td>
       </tr>
      
       <tr>
