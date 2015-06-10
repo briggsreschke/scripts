@@ -4,7 +4,7 @@ File: aparse.py
 GNU Public License
 
 Parse Apache log file. regex pattern may need be altered to suit specfic log format
-Includes optional user customizable routines for filtering log file records.
+Includes optional, adaptable routines for filtering log file records.
 
 """
 
@@ -27,7 +27,7 @@ REFERER_ = 5
 AGENT = 6
 		
 
-# Optional adaptable routines for filtering log records
+# Optional, adaptable routines for filtering purposes
 
 def host(arr):
 	host = arr[HOST]
@@ -129,7 +129,7 @@ def get_agent(arr):
 	return agent
 
 # Get dictionary of log records
-def get_dict(arr):
+def get_records(arr):
 	records = {}
 	
 	for r in arr:
@@ -180,17 +180,17 @@ LOG_FILE = '/private/var/log/apache2/access.log'
 def main():
 	
 	dicts = {}
+	cnt = 0
 		
 	try:
 		# Parse records
-		records = parse(LOG_FILE)
+		arr = parse(LOG_FILE)
 	except:
 		print 'Unable to proccess log file'
 		sys.exit(2) 
 	try:
 		# Get list of dicts
-		r = get_dict(records)
-		cnt = 0
+		r = get_records(arr)
 
 		for key, value in r.iteritems():
 			print value + '\n'
