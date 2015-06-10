@@ -4,13 +4,12 @@ File: aparse.py
 GNU Public License
 
 Parse Apache log file. regex pattern may need be altered to suit specfic log format
-Includes optional user customizable routines for filtering records or error checking.
+Includes optional user customizable routines for filtering log file records.
 
 """
 
 import sys
 import re
-import aparse
 
 LOG_REGEX = '([(\d\.)]+) - - \[(.*?)\] "(.*?)" (\d+) (\d+) "(.*?)" "(.*?)"'
 
@@ -28,9 +27,9 @@ REFERER_ = 5
 AGENT = 6
 		
 
-# Optional adaptable routines for error checking or filtering individual log records
+# Optional adaptable routines for filtering log records
 
-def get_host(arr):
+def host(arr):
 	host = arr[HOST]
 	return host
 
@@ -131,25 +130,28 @@ def get_agent(arr):
 
 # Get dictionary of log records
 def get_dict(arr):
-	dictionaries = []
-	dict = {}
+	records = {}
 	
 	for r in arr:
-		dict['host'].append(get_host(r))
-       # Intact unix time stamp
-		dict['timestamp'].append(get_timestamp(r))
-		dict['time'].append(get_time(r))
-		dict['date'].append(get_date(r))
-		dict['timezone'].append(get_timezone(r))
-		dict['method'].append(get_method(r))
-		dict['path'].append(get_path(r))
-		dict['protocol'].append(get_protocol(r))
-		dict['status'].append(get_status(r))  
-		dict['bytes'].append(get_bytes(r))
-		dict['referer'].append(get_referer(r))
-		dict['agent'].append(get_agent(r))	
+		#ip address of host
+		records['host'].append(get_host(r))
+       	# Intact unix time stamp
+		records['timestamp'].append(get_timestamp(r))
+		#Parsed timestamp string
+		records['time'].append(get_time(r))
+		records['date'].append(get_date(r))
+		records['timezone'].append(get_timezone(r))
+		#Parsed method, path, protocol string
+		records['method'].append(get_method(r))
+		records['path'].append(get_path(r))
+		records['protocol'].append(get_protocol(r))
+		#Everything else
+		records['status'].append(get_status(r))  
+		records['bytes'].append(get_bytes(r))
+		records['referer'].append(get_referer(r))
+		records['agent'].append(get_agent(r))	
 	
-	return dict
+	return records
 
 def parse(fname):	
 	arr = []
@@ -177,22 +179,24 @@ LOG_FILE = '/private/var/log/apache2/access.log'
 
 def main():
 	
-	dictionaries = []
+	dicts = {}
 		
 	try:
 		# Parse records
-		records = aparse.parse(LOG_FILE)
+		records = parse(LOG_FILE)
 	except:
 		print 'Unable to proccess log file'
-		sys.exit(2)
-	 
+		sys.exit(2) 
 	try:
 		# Get list of dicts
-		dictionaries = aparse.get_dict(records)
+		r = get_dict(records)
+		cnt = 0
+
+		for key, value in r.iteritems():
+			print value + '\n'
+			cnt += 1
 		
-		for i in range(len(dictionaries)):
-			print dictionaries[i]
-		print 'Processed ' + str(len(dictionaries)) + ' records\n'
+		print 'Processed ' + str(cnt) + ' records\n'
 	except:
 		print 'Parsing unsuccessful'
 		sys.exit(1)
