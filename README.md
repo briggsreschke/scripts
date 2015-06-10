@@ -26,6 +26,10 @@
        
       <tr>
            <td>
+                <h6>Status</h6>
+                <ul>
+                    <li>Operational</li>
+                </ul>
                <h6>Todo</h6>
                <ul>
                   <li>Search and replace in addition to search</li>
