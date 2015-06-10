@@ -135,23 +135,21 @@ def get_dict(arr):
 	dict = {}
 	
 	for r in arr:
-		dict['host'] = get_host(r)
+		dict['host'].append(get_host(r))
        # Intact unix time stamp
-		dict['timestamp'] = get_timestamp(r)
-		dict['time'] = get_time(r)
-		dict['date'] = get_date(r)
-		dict['timezone'] = get_timezone(r)
-		dict['method'] = get_method(r)
-		dict['path'] = get_path(r)
-		dict['protocol'] = get_protocol(r)
-		dict['status'] = get_status(r)  
-		dict['bytes'] = get_bytes(r)
-		dict['referer'] = get_referer(r)
-		dict['agent'] = get_agent(r)
-		
-		dictionaries.append(dict)	
+		dict['timestamp'].append(get_timestamp(r))
+		dict['time'].append(get_time(r))
+		dict['date'].append(get_date(r))
+		dict['timezone'].append(get_timezone(r))
+		dict['method'].append(get_method(r))
+		dict['path'].append(get_path(r))
+		dict['protocol'].append(get_protocol(r))
+		dict['status'].append(get_status(r))  
+		dict['bytes'].append(get_bytes(r))
+		dict['referer'].append(get_referer(r))
+		dict['agent'].append(get_agent(r))	
 	
-	return dictionaries
+	return dict
 
 def parse(fname):	
 	arr = []
