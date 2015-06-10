@@ -129,29 +129,29 @@ def get_agent(arr):
 	return agent
 
 # Get dictionary of log records
-def get_records(arr):
-	records = {}
+def get_dict(arr):
+	dic = {}
 	
-	for r in arr:
-		#ip address of host
-		records['host'].append(get_host(r))
-       	# Intact unix time stamp
-		records['timestamp'].append(get_timestamp(r))
-		#Parsed timestamp string
-		records['time'].append(get_time(r))
-		records['date'].append(get_date(r))
-		records['timezone'].append(get_timezone(r))
-		#Parsed method, path, protocol string
-		records['method'].append(get_method(r))
-		records['path'].append(get_path(r))
-		records['protocol'].append(get_protocol(r))
-		#Everything else
-		records['status'].append(get_status(r))  
-		records['bytes'].append(get_bytes(r))
-		records['referer'].append(get_referer(r))
-		records['agent'].append(get_agent(r))	
+
+	#ip address of host
+	dic['host'] = get_host(arr)
+  	# Intact unix time stamp
+	dic['timestamp'] = get_timestamp(arr)
+	#Parsed timestamp string
+	dic['time'] = get_time(arr)
+	dic['date'] = get_date(r)
+	dic['timezone'] = get_timezone(arr)
+	#Parsed method, path, protocol string
+	dic['method'] = get_method(arr)
+	dic['path'] = get_path(r)
+	dic['protocol'] = get_protocol(arr)
+	#Everything else
+	dic['status'] = get_status(arr)  
+	dic['bytes'] = get_bytes(arr)
+	dic['referer'] = get_referer(arr)
+	dic['agent'] = get_agent(arr)	
 	
-	return records
+	return dic
 
 def parse(fname):	
 	arr = []
@@ -179,7 +179,7 @@ LOG_FILE = '/private/var/log/apache2/access.log'
 
 def main():
 	
-	dicts = {}
+	dic = {}
 	cnt = 0
 		
 	try:
@@ -190,10 +190,8 @@ def main():
 		sys.exit(2) 
 	try:
 		# Get list of dicts
-		r = get_records(arr)
-
-		for key, value in r.iteritems():
-			print value + '\n'
+		for r in arr
+			dic = get_dict(r)
 			cnt += 1
 		
 		print 'Processed ' + str(cnt) + ' records\n'
