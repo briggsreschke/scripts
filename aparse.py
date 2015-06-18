@@ -191,11 +191,12 @@ def main():
 	try:
 		# Print records
 		for r in arr		
-			dict = get_dict(r)
-			for key, value in iteritems(dict):
+			dic = get_dict(r)
+			for key, value in iteritems(dic):
 				print key + ' : ' + value + '\n'
 			cnt += 1
-		
+			print '\n'
+			
 		print 'Processed ' + str(cnt) + ' records\n'
 	except:
 		print 'Parsing unsuccessful'
