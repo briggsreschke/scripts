@@ -1,17 +1,5 @@
-<p>
-    <table>
-      <tr>
-        <th colspan=2><h4> Data Management and Data Automation </h4></th>
-      </tr>
-      
-      <tr>
-        <td><h6> aparse.py </h6></td> 
-        <td>An apache log file parser with optional routines for additional filtering.</td>
-      </tr>
-    
-      <tr>
-        <td><h6>csvm.py</h6></td>
-        <td>Simple search, delete, merge for csv files.</td>      
-      </tr>
-   </table>
-</p>
+## Data Management and Data Automation </h4></th>
+
+***aparse.py*** is an Apache log file parser with optional routines for additional filtering.
+***csvm.py*** is simple search, delete, merge for csv files. Good for situations where there's multiple csv files that need to be merged and parred down on the fly.    
+
