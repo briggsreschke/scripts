@@ -1,8 +1,6 @@
 """
 File: aparse.py
 
-GNU Public License
-
 Parse Apache log file. regex pattern may need be altered to suit specfic log format
 Includes optional, adaptable routines for filtering log file records.
 
@@ -125,7 +123,7 @@ def get_agent(arr):
 	agent = arr[AGENT]
 	
 	if agent == '-':
-		return 'unknwon'
+		return 'unknown'
 	return agent
 
 # Get dictionary of log records
