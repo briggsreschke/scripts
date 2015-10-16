@@ -63,7 +63,7 @@ def delete_cols(data, col_list, header):
 	col_list = uniq_cols(col_list)
 	#Make sure list of columns matches up with the data
 	if not check_cols(data, col_list):	
-		print 'column list isn\'t consistent with data'
+		sys.stderr.write('column list isn\'t consistent with data\n')
 		sys.exit(8)
 
 	# if there is a header
@@ -90,7 +90,7 @@ def search_rows(data, match_dict, header):
 	col_list = uniq_cols(match_dict.keys())
 	#Make sure columns to search do not exceed data colmuns
 	if not check_cols(data, col_list):
-		print 'columns in dict keys aren\'t consistent with data'
+		sys.stderr.write('columns in dict keys aren\'t consistent with data\n')
 		sys.exit(8)
 
 	# Deal with the header
@@ -124,12 +124,12 @@ def search_rows(data, match_dict, header):
 def merge_files(file_list, ofile, header):
 
 	if os.path.isfile(ofile):
-		print 'Ouput file already exists'
+		sys.stderr.write('Ouput file already exists\n')
 		sys.exit(6)
 	try:
 		op = open(ofile, 'w+')
 	except:
-		print "Unable to open output file in merge_files()"
+		sys.stderr.write("Unable to open output file in merge_files()\n")
 		sys.exit(5)
 
 	count = 0	
@@ -137,13 +137,13 @@ def merge_files(file_list, ofile, header):
 
 	for fname in file_list:		
 		if not os.path.isfile(fname):
-			print 'Input file ' + fname + ' does not exist.'
+			sys.stderr.write('Input file ' + fname + ' does not exist.\n')
 			continue
 
 		try:
 			ip = open(fname)
 		except:
-			print 'Unable to open input file ' + fname + '.'
+			sys.stderr.write('Unable to open input file ' + fname + '.\n')
 			continue		
 	
 		line = ip.readline()
@@ -173,13 +173,13 @@ def write_data(data, fname, delimiter):
 
 	# Check to see if file exists
 	if os.path.isfile(fname):
-		print 'output file already exists'
+		sys.stderr.write('output file already exists\n')
 		sys.exit(4)
 	# Open output file
 	try:
 		op = open(fname, 'w+')
 	except:
-		print 'Problem creating output file'
+		sys.stderr.write('Problem creating output file\n')
 		exit(3)
 	# Write data to output 
 	for val in data:
@@ -194,13 +194,13 @@ def read_data(fname, delimiter):
 	data = []
 	
 	if not os.path.isfile(fname):
-		print 'Input file ' + fname + ' does not exist.'
+		sys.stderr.write('Input file ' + fname + ' does not exist.\n')
 		sys.exit(2)
 
 	try:
 		ip = open(fname)
 	except:
-		print 'Could not open input file in read_data()'
+		sys.stderr.write('Could not open input file in read_data()\n')
 		sys.exit(1)
 	
 	#Read data into a list 
