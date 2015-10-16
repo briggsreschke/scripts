@@ -47,7 +47,7 @@ def uniq_cols(col_list):
 #Remove cells (columns) from row
 def delete_cells(row, col_list):
 	
-	for idx, cell in enumerate(cols):
+	for idx, cell in enumerate(col_list):
 		cell -= idx
 		del row[cell]
 	return row
