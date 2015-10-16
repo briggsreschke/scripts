@@ -123,9 +123,13 @@ def search_rows(data, match_dict, header):
 
 def merge_files(file_list, ofile, header):
 
-	if os.path.isfile(ofile):
+	try:
+                os.path.isfile(ofile):
 		sys.stderr.write('Ouput file already exists\n')
 		sys.exit(6)
+        except:
+                pass
+
 	try:
 		op = open(ofile, 'w+')
 	except:
@@ -136,8 +140,10 @@ def merge_files(file_list, ofile, header):
 	flag = False
 
 	for fname in file_list:		
-		if not os.path.isfile(fname):
-			sys.stderr.write('Input file ' + fname + ' does not exist.\n')
+		try:
+                        os.path.isfile(fname):
+	        except:
+                        sys.stderr.write('Input file ' + fname + ' does not exist.\n')
 			continue
 
 		try:
@@ -172,9 +178,13 @@ def merge_files(file_list, ofile, header):
 def write_data(data, fname, delimiter):
 
 	# Check to see if file exists
-	if os.path.isfile(fname):
+	try:
+                os.path.isfile(fname)
 		sys.stderr.write('output file already exists\n')
 		sys.exit(4)
+        except:
+                pass
+
 	# Open output file
 	try:
 		op = open(fname, 'w+')
@@ -193,10 +203,11 @@ def write_data(data, fname, delimiter):
 def read_data(fname, delimiter):
 	data = []
 	
-	if not os.path.isfile(fname):
-		sys.stderr.write('Input file ' + fname + ' does not exist.\n')
+        try:
+                os.path.isfile(fname):
+        except:
+                sys.stderr.write('Input file ' + fname + ' does not exist.\n')
 		sys.exit(2)
-
 	try:
 		ip = open(fname)
 	except:
