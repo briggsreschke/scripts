@@ -14,6 +14,7 @@ Merge a list of files:
 	files = [file1, file2, ...]
 
 Todo: 
+        * Insert columns
 	* Search and replace
 --------------------------------------------------------------------
 """
