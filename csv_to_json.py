@@ -1,4 +1,4 @@
-# read csv with header and write to array of dicts 
+# read csv and write to array of dicts 
 import csv
 import json
 
