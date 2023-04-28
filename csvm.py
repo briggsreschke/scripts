@@ -1,7 +1,6 @@
 """
 --------------------------------------------------------------------
-csvm.py - Ver 1.0 - Last updated 5.9.2015
-
+csvm.py
 Simple search, merge and delete operations for csv files. 
 
 Use regular expressions to search rows for matches:
