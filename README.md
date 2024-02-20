@@ -1,10 +1,9 @@
 #### Data Management and Data Automation </h4></th>
 
-*csvm.py          - Set of routines to edit csv files
+*csvm.py*          - Set of routines to edit csv files
+*arc-polyline.py*  - School assignment to use ArcPy
 
-*arc-polyline.py  - School assignment to use ArcPy
-
-**deepthought.py   - Minimal twitter quote bot
+*deepthought.py*   - Minimal twitter quote bot
 
 
 
