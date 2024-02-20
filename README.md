@@ -1,5 +1,5 @@
 #### Data Management and Data Automation </h4></th>
-
+| Foo              | Bar                                   |
 |------------------|---------------------------------------|
 |*csvm.py*         | Set of routines for altering csv files|
 |*arc-polyline.py* | School assignment (ArcPy) that plots poly-lines from a database of coords. | 
