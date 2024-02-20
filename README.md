@@ -3,9 +3,9 @@
 foo
 
 
-*csvm.py*          - Set of routines to edit csv files...
-*arc-polyline.py*  - School assignment to use ArcPy
-*deepthought.py*   - Minimal twitter quote bot
+*csvm.py*          - Set of routines to edit csv files  
+*arc-polyline.py*  - School assignment to use ArcPy  
+*deepthought.py*   - Minimal twitter quote bot  
 
 
 
