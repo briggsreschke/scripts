@@ -1,9 +1,6 @@
 '''
 Written with esri arcpy for a project in course of earning a GIS certification. It takes a 
 csv file ('Observations') with['name', 'x', 'y'] as fields and plots multiple polyline paths from that data.
-
-The name field is set to 'Rhino' (plots Rhinos) so search and replace every instance of 'Rhino' with a field name to use.
-Takes input and output file names from the command line. 
 '''
 
 import arcpy, os, sys
