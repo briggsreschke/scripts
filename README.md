@@ -1,5 +1,5 @@
 #### Data Management and Data Automation </h4></th>
-                                                        
+|                  |                                       |                                                       
 |------------------|---------------------------------------|
 |*csvm.py*         | Routines for removing rows, cols, regex matches from csv files|
 |*arc-polyline.py* | School assignment (ArcPy) that plots poly-lines from a database of coords | 
