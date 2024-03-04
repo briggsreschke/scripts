@@ -142,16 +142,9 @@ def main():
     # Create ouput shapefile with GCS_NAD_1983 (4269) spatial reference
     try:
         arcpy.CreateFeatureclass_management(outputDir, outputShape, "POLYLINE", "", "DISABLED", "DISABLED", GCS_North_American_1983)
-        
-        '''
-        Create a field in the polyline shapefile to hold rhino's name
-        In cases where an observations file follow a field name standard
-        this line of code would not be neccesssary
-        '''
-
+     
         arcpy.AddField_management(outShape, NAME_FIELD, "TEXT")
        
-    
         # write the path to a file
         numObservations = createPath(rhinoHash, outShape)
     except:
