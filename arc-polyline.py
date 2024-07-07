@@ -13,11 +13,11 @@ NAME_FIELD = "Rhino"
 X_FIELD = "X"
 Y_FIELD = "Y"
 
-# Read though csv file containing rhino tracks (or any set of polylines) and create a hash such as:
-# hash = {'name1' : [[x1,y1], [x2, y2], [x3, y3],...], 'name2' : [[x1, x2], ...], ...}
+# Read though csv file containing rhino tracks (or any set of polylines) and create a dict such as:
+# Dict = {'name1' : [[x1,y1], [x2, y2], [x3, y3],...], 'name2' : [[x1, x2], ...], ...}
 
 def getCoordinates(inFile):
-    Hash = {}
+    Dict = {}
 
     # Read the header
     headerLine = inFile.readline()
@@ -39,9 +39,9 @@ def getCoordinates(inFile):
         # Read the name and determine if it is already a hash key
         Name = Data[nameIndex]
 
-        if Name not in Hash:
+        if Name not in Dict:
             # Create an array that will be referenced by hash key (aka rhino name)
-            Hash[Name] = []
+            Dict[Name] = []
 
         # Get the X, Y location of rhino and create a coordinate list
         x = Data[xIndex]
@@ -50,16 +50,16 @@ def getCoordinates(inFile):
         coordList = [x,y]
 
         # append the coordinate list to rhino's polyline
-        Hash[Name].append(coordList)
+        Dict[Name].append(coordList)
 
         # Read the next line in the csv file
         Record =  inFile.readline().rstrip()
 
-    return Hash
+    return Dict
 
 # Create a polyline shapefile to hold SHAPE field (Rhino tracks) and name
 
-def createPath(Hash, Shapefile):
+def createPath(Dict, Shapefile):
     count = 0
     polylineArray = arcpy.Array()
 
@@ -67,9 +67,9 @@ def createPath(Hash, Shapefile):
     cursor = arcpy.InsertCursor(Shapefile)
 
     # loop through all of the rhinos in the hash
-    for key in Hash:
+    for key in Dict:
         # Add array of coordinate pairs to array holding polyline
-        polylineArray.add(Hash[key])
+        polylineArray.add(Dict[key])
         count += 1
 
         # Create polyline from array of points
@@ -128,7 +128,7 @@ def main():
         # Open file with coordinates of rhino tracks
         rhinoObservations = open(Observations, "r")
         # Create a hash of rhinos and thier path
-        rhinoHash = getCoordinates(rhinoObservations)
+        rhinoDict = getCoordinates(rhinoObservations)
     
         # close file
         rhinoObservations.close()
@@ -146,12 +146,12 @@ def main():
         arcpy.AddField_management(outShape, NAME_FIELD, "TEXT")
        
         # write the path to a file
-        numObservations = createPath(rhinoHash, outShape)
+        numObservations = createPath(rhinoDict, outShape)
     except:
         print "Error creating shapefile"
         sys.exit(1)
     
-    print "Processed " + str(len(rhinoHash)) + " rhinos and " + str(numObservations) + " observations"
+    print "Processed " + str(len(rhinoDict)) + " rhinos and " + str(numObservations) + " observations"
     
     sys.exit(0)
 if __name__ == "__main__":
