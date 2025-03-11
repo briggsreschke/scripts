@@ -1,5 +1,5 @@
 '''
-Written with esri arcpy for a project in course of earning a GIS certification. It takes a 
+Written with esri arcpy for a project in course of earning a Post-bacc GIS certification. It takes a 
 csv file ('Observations') with['name', 'x', 'y'] as fields and plots multiple polyline paths from that data.
 '''
 
